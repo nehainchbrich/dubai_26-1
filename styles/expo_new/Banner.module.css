@@ -72,9 +72,10 @@
 
 .primaryBtn {
   padding: 14px 28px;
-  background: #c5a059;
+  background: #d3122a;
   /* Luxury Gold */
-  color: #fff;
+  border: 1px solid #d3122a;
+  color: #fff !important;
   font-weight: 700;
   letter-spacing: 0.03em;
   border-radius: 2px;
