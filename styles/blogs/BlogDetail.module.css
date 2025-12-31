@@ -1,0 +1,77 @@
+.pageWrapper {
+    background: #fff;
+    min-height: 100vh;
+}
+
+.titleSection {
+    background: #e0e0e0 !important;
+    padding: 35px 0 !important;
+    border-bottom: 1px solid #dcdcdc;
+    position: relative;
+    overflow: hidden;
+}
+
+.categoryBadge {
+    display: inline-block;
+    background: #d3122a;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(211, 18, 42, 0.2);
+}
+
+.mainTitle {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    position: relative;
+    z-index: 2;
+    padding-left: 20px;
+    border-left: 5px solid #d3122a;
+}
+
+.metaInfo {
+    display: flex;
+    gap: 20px;
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
+}
+
+.metaInfo span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.metaInfo i {
+    color: #d3122a;
+}
+
+.contentBody {
+    padding: 40px 0;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .mainTitle {
+        font-size: 1.8rem;
+    }
+
+    .metaInfo {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

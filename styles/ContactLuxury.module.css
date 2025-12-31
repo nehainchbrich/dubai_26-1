@@ -1,0 +1,219 @@
+.pageWrapper {
+    background: #ffffff;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+}
+
+/* --- Luxury Page Header --- */
+.heroSection {
+    background: #1a1a1a;
+    padding: 100px 0 140px;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+}
+
+.heroSection::before {
+    content: 'CONTACT';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20vw;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.03);
+    white-space: nowrap;
+    z-index: 1;
+    pointer-events: none;
+    letter-spacing: 5vw;
+}
+
+.heroContent {
+    position: relative;
+    z-index: 10;
+}
+
+.titleBadge {
+    display: inline-block;
+    background: #d3122a;
+    color: #fff;
+    padding: 6px 20px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(211, 18, 42, 0.3);
+}
+
+.mainTitle {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    letter-spacing: -2px;
+}
+
+.mainTitle span {
+    color: #d3122a;
+}
+
+.subTitle {
+    font-size: 1.2rem;
+    color: #aaa;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+/* --- Floating Contact Card --- */
+.mainContactArea {
+    margin-top: -80px;
+    position: relative;
+    z-index: 20;
+    padding-bottom: 80px;
+}
+
+.contactCard {
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+}
+
+.flexLayout {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* --- Left Side: Info --- */
+.infoPanel {
+    flex: 0 0 45%;
+    background: #fdfdfd;
+    padding: 60px;
+    border-right: 1px solid #f0f0f0;
+}
+
+.officeBox {
+    margin-bottom: 50px;
+}
+
+.officeTitle {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.officeTitle i {
+    color: #d3122a;
+    font-size: 1.2rem;
+}
+
+.detailItem {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.iconCircle {
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d3122a;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.detailLabel {
+    display: block;
+    font-size: 0.7rem;
+    color: #888;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+}
+
+.detailValue {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.detailValue a {
+    color: #111;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.detailValue a:hover {
+    color: #d3122a;
+}
+
+/* --- Right Side: Form --- */
+.formPanel {
+    flex: 1;
+    padding: 60px;
+}
+
+.formGreeting {
+    margin-bottom: 40px;
+}
+
+.formTitle {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 10px;
+}
+
+.formDesc {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* --- Creative Map Section --- */
+.mapContainer {
+    margin: 40px 0;
+    border-radius: 30px;
+    overflow: hidden;
+    height: 500px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f0f0;
+}
+
+/* --- Responsive --- */
+@media (max-width: 991px) {
+
+    .infoPanel,
+    .formPanel {
+        flex: 0 0 100%;
+    }
+
+    .infoPanel {
+        border-right: none;
+        border-bottom: 1px solid #f0f0f0;
+        padding: 40px;
+    }
+
+    .formPanel {
+        padding: 40px;
+    }
+
+    .mainTitle {
+        font-size: 2.5rem;
+    }
+}

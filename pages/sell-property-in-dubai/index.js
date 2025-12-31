@@ -31,12 +31,13 @@ const HorizontalPropertyCard = memo(({ item }) => {
   return (
     <div className={styles.rowCard}>
       <div className={styles.imgSide}>
+        <div className={styles.topDevOverlay}>
+          <h4>{item.title.split(' ').slice(0, 2).join(' ')}</h4>
+        </div>
         <div className={styles.saveHeart} aria-label="Save Property">
           <i className="far fa-heart"></i>
         </div>
-        <div className={styles.comparisonCheck} onClick={(e) => { e.preventDefault(); handleSelectForComparison(item); }}>
-          <i className="fas fa-plus"></i> Compare
-        </div>
+        <div className={styles.devOverlay}>{item.Developer?.name}</div>
         {item.PCategory && <div className={styles.typeBadge}>{item.PCategory.title}</div>}
         <Link href={`/properties/${item.slug}`}>
           <Image
@@ -84,7 +85,7 @@ const HorizontalPropertyCard = memo(({ item }) => {
                 rel="noopener noreferrer"
                 className={styles.whatsappBtn}
               >
-                <i className="fa-brands fa-whatsapp"></i>
+                <i className="fab fa-whatsapp"></i>
                 <span>WhatsApp</span>
               </a>
             </div>
@@ -147,17 +148,26 @@ const Index = ({ property, sellpage, meta }) => {
 
   return (
     <div className={styles.pageWrapper}>
-      <header className={styles.titleSection}>
+      <header
+        className={styles.titleSection}
+        style={{
+          background: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(${imageKitLoader({ src: meta?.thumbnail || 'https://img.freepik.com/free-photo/abstract-web-graphic-computer-element_1127-2398.jpg', width: 1920 })})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 30%',
+          backgroundBlendMode: 'overlay'
+        }}
+      >
         <div className="container mb-2">
           <span className={styles.countLabel}>{total.toLocaleString()} Exclusive Listings</span>
           <h1 className={styles.mainTitle}>{sellpage.title}</h1>
-          <p className="text-white-50 lead mb-0">Discover your dream home in the heart of Dubai</p>
+
+          <p className={styles.headerDesc}>Discover your dream home in the heart of Dubai</p>
         </div>
       </header>
 
       <div className="container">
         <section className={styles.filterContainer}>
-          <div style={{ marginBottom: '10px', fontWeight: '800', fontSize: '0.75rem', color: '#c5a059', letterSpacing: '1px', textTransform: 'uppercase', opacity: '0.8' }}>
+          <div className={styles.hubLabel}>
             Property Search Hub
           </div>
           <div className={styles.slimMainRow}>

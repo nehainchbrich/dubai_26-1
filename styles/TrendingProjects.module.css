@@ -17,14 +17,22 @@
     display: grid;
     grid-template-columns: 320px 1fr;
     gap: 50px;
-    align-items: flex-start;
+    align-items: stretch;
 }
 
 /* Left Content */
 .leftContent {
     position: relative;
-    padding-top: 10px;
+    padding: 40px;
     z-index: 10;
+    background: #1a1a1a;
+    background-image: radial-gradient(circle at 100% 0%, rgba(211, 18, 42, 0.15) 0%, transparent 60%);
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .watermarkBody {
@@ -46,7 +54,7 @@
 .titleMain {
     font-size: 2.8rem;
     font-weight: 400;
-    color: #1a1a1a;
+    color: #ffffff;
     line-height: 1.1;
     position: relative;
     z-index: 10;
@@ -66,7 +74,7 @@
 
 .subHeading {
     font-size: 1rem;
-    color: #666;
+    color: rgba(255, 255, 255, 0.8);
     line-height: 1.6;
     margin-bottom: 40px;
     max-width: 300px;
@@ -89,7 +97,7 @@
 .currentProgress {
     font-size: 0.9rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #ffffff;
     letter-spacing: 2px;
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
@@ -132,7 +140,7 @@
 /* Right Slider */
 .sliderPane {
     overflow: hidden;
-    padding: 10px 0;
+    padding: 0px 0;
     position: relative;
     z-index: 10;
     min-width: 0;
@@ -145,7 +153,7 @@
     scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding: 10px 0 30px 5px;
+    padding: 0px 0 0px 5px;
 }
 
 .showcaseWrapper::-webkit-scrollbar {

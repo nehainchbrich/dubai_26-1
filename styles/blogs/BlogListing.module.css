@@ -1,0 +1,141 @@
+.pageWrapper {
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+/* --- Combined Creative Header --- */
+.combinedHeader {
+    background: #e0e0e0 !important;
+    padding: 30px 0 !important;
+    border-bottom: 1px solid #dcdcdc;
+    position: relative;
+    overflow: hidden;
+}
+
+.headerFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.titleBox {
+    flex: 1;
+}
+
+.mainTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 4px;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    padding-left: 20px;
+    border-left: 5px solid #d3122a;
+}
+
+.mainTitle span {
+    color: #d3122a;
+}
+
+.headerDesc {
+    font-size: 0.95rem;
+    color: #555;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* --- Integrated Search --- */
+.searchBox {
+    flex: 0 0 450px;
+}
+
+.searchUnit {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #eef0f2;
+    border-radius: 12px;
+    padding: 0 10px 0 20px;
+    height: 52px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.searchUnit:focus-within {
+    border-color: #d3122a;
+    box-shadow: 0 15px 40px rgba(211, 18, 42, 0.1);
+}
+
+.search_bar {
+    width: 100%;
+    border: none !important;
+    background: transparent !important;
+    padding: 8px 0 !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: #111;
+    height: 100% !important;
+    box-shadow: none !important;
+}
+
+.search_bar:focus {
+    outline: none;
+}
+
+.btnAction {
+    background: #d3122a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    width: 44px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btnAction:hover {
+    background: #000;
+    transform: scale(1.05);
+}
+
+@media (max-width: 991px) {
+    .headerFlex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .searchBox {
+        width: 100%;
+        flex: none;
+    }
+}
+
+/* --- Search & Grid Area --- */
+.contentArea {
+    padding: 40px 0;
+}
+
+
+/* --- Blog Grid --- */
+.blogGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .mainTitle {
+        font-size: 2.2rem;
+    }
+
+    .blogGrid {
+        grid-template-columns: 1fr;
+    }
+}

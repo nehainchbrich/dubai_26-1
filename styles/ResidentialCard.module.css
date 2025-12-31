@@ -1,0 +1,203 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    /* Soft, premium shadow */
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    border-color: rgba(197, 160, 89, 0.3);
+    /* Gold hint on hover */
+}
+
+/* Image Section */
+.imageContainer {
+    width: 100%;
+    height: 280px;
+    /* Taller image for better visual */
+    position: relative;
+    overflow: hidden;
+}
+
+.image {
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.card:hover .image {
+    transform: scale(1.08);
+}
+
+.badges {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(4px);
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #1a1a1a;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.badge.featured {
+    background: #d3122a;
+    /* Brand Red */
+    color: #fff;
+}
+
+/* Content Section */
+.content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 12px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 5px;
+}
+
+.price {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1;
+}
+
+.price span {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #888;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+    margin: 0;
+
+    /* Limit lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card:hover .title {
+    color: #d3122a;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.location i {
+    color: #c5a059;
+    /* Gold */
+}
+
+/* Features/Amenities (Bed/Bath etc if available) usually in footer or body */
+.features {
+    display: flex;
+    gap: 15px;
+    padding: 15px 0;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+    margin: 5px 0 15px 0;
+}
+
+.featureItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: #555;
+    font-weight: 600;
+}
+
+.featureItem i {
+    color: #999;
+}
+
+/* Footer Section */
+.footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.metaInfo {
+    display: flex;
+    gap: 10px;
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.agent {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.agentImg {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #eee;
+}
+
+.actionBtn {
+    background: transparent;
+    border: 1px solid #c5a059;
+    color: #c5a059;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.card:hover .actionBtn {
+    background: #c5a059;
+    color: #fff;
+}

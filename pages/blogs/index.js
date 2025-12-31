@@ -6,16 +6,18 @@ import BlogItem2 from '@/components/website/blogs/BlogItem2';
 import { fetchData } from '@/config/fetchApi';
 import API_URLS from '@/config/apiconfig';
 import OfferBlog from '@/components/expo_new/OfferBlog';
+import blogStyles from '@/styles/blogs/BlogListing.module.css';
+import RightSide from '@/components/website/blogs/RightSide';
 
-const Blog = ({ blog, meta, event }) => {
-    const activeExpos = Array.isArray(event)
+const Blog = ({ blog, meta, event, latestBlog, blogCat, blogTag }) => {
+  const activeExpos = Array.isArray(event)
     ? event.filter((expo) => {
-        const status = (expo.status || "").toUpperCase();
-        return (
-          status === "ACTIVE" ||
-          (status === "UPCOMING" && Number(expo.default_status) === 1)
-        );
-      })
+      const status = (expo.status || "").toUpperCase();
+      return (
+        status === "ACTIVE" ||
+        (status === "UPCOMING" && Number(expo.default_status) === 1)
+      );
+    })
     : [];
   const { data, total } = blog;
   const limit = 10;
@@ -51,15 +53,14 @@ const Blog = ({ blog, meta, event }) => {
       console.error('Error fetching blogs:', error);
     }
   };
-  // 🔹 Search handler
+
   const SearchKeyPress = (e) => {
     const value = e.target.value.toLowerCase();
-    setSearchInput(value); // only set state
+    setSearchInput(value);
   };
 
-  // 🔹 Run fetch when search input changes
   useEffect(() => {
-    fetchMoreBlogs(1, true); // reset to page 1 with search applied
+    fetchMoreBlogs(1, true);
   }, [searchInput]);
 
   const loadMore = () => {
@@ -67,42 +68,70 @@ const Blog = ({ blog, meta, event }) => {
   };
 
   return (
-    <>
-      {/* <CommonBanner title="Blogs" meta={meta} /> */}
-      <OfferBlog event={activeExpos}/>
-      <div className="container mb-5 mt-3">
-        <div className="row mb-4">
-        <div className="col-md-6">
-          <h2>Latest Blogs ({total})</h2>
-          </div>
-          <div className="col-md-6">
-            <input
-              type="text"
-              name="search"
-              placeholder="🔍 Search Blogs"
-              className="form-control search_bar"
-              value={searchInput}
-              onChange={SearchKeyPress}
-            />
+    <div className={blogStyles.pageWrapper}>
+      <OfferBlog event={activeExpos} />
+
+      <header className={blogStyles.combinedHeader}>
+        <div className="container">
+          <div className={blogStyles.headerFlex}>
+            <div className={blogStyles.titleBox}>
+              <h1 className={blogStyles.mainTitle}>Latest <span>Insights</span></h1>
+              <p className={blogStyles.headerDesc}>Real estate trends & lifestyle guides from Dubai's experts.</p>
+            </div>
+            <div className={blogStyles.searchBox}>
+              <div className={blogStyles.searchUnit}>
+                <input
+                  type="text"
+                  placeholder="Search articles..."
+                  className={blogStyles.search_bar}
+                  value={searchInput}
+                  onChange={SearchKeyPress}
+                />
+                <button className={blogStyles.btnAction}>
+                  <i className="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
+      </header>
 
-        <InfiniteScroll
-          dataLength={blogData.length}
-          next={loadMore}
-          hasMore={hasMore}
-          loader={<h4>Loading...</h4>}
-          style={{ height: 'unset', overflow: 'unset' }}
-          className="row"
-        >
-          {blogData.map((item, index) => (
-            <div className="col-md-4 mb-4" key={index}>
-              <BlogItem2 data={item} />
+      <section className={blogStyles.contentArea}>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-8">
+              <InfiniteScroll
+                dataLength={blogData.length}
+                next={loadMore}
+                hasMore={hasMore}
+                loader={<div className="text-center py-5"><h4>Loading more articles...</h4></div>}
+                style={{ height: 'unset', overflow: 'unset' }}
+              >
+                <div className={blogStyles.blogGrid}>
+                  {blogData.map((item, index) => (
+                    <BlogItem2 data={item} key={index} />
+                  ))}
+                </div>
+              </InfiniteScroll>
+
+              {blogData.length === 0 && (
+                <div className="text-center py-5 opacity-50">
+                  <h3>No results found for your search</h3>
+                </div>
+              )}
             </div>
-          ))}
-        </InfiniteScroll>
-      </div>
-    </>
+
+            <div className="col-lg-4">
+              <RightSide
+                category={blogCat}
+                tags={blogTag}
+                latestBlog={latestBlog}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
 
@@ -130,21 +159,31 @@ export async function getServerSideProps() {
       slug: 'blogs',
       columns: 'title,description,thumbnail,slug',
     });
-// ✅ fetch expo events for activeExpos
-      const eventRes = await fetchData(API_URLS.EVENTDETAILS, {
-        status: "!UPCOMING",
-      });
-      const event = eventRes?.data || [];
+
+    // Fetch sidebar data
+    const latestBlogRes = await fetchData(API_URLS.BLOG, { status: 1, limit: 5, sort: 'id:desc' });
+    const blogCatsRes = await fetchData(API_URLS.BLOGCATEGORY, { status: 1 });
+    const blogTagsRes = await fetchData(API_URLS.BLOG_TAG);
+
+    // ✅ fetch expo events for activeExpos
+    const eventRes = await fetchData(API_URLS.EVENTDETAILS, {
+      status: "!UPCOMING",
+    });
+    const event = eventRes?.data || [];
+
     return {
       props: {
         blog: blog.total > 0 ? blog : { data: [], total: 0 },
         meta: meta.data[0] || null,
         event,
+        latestBlog: latestBlogRes?.data || [],
+        blogCat: blogCatsRes?.data || [],
+        blogTag: blogTagsRes?.data || [],
       },
     };
   } catch (error) {
     return {
-      props: { blog: { data: [], total: 0 }, meta: null },
+      props: { blog: { data: [], total: 0 }, meta: null, event: [], latestBlog: [], blogCat: [], blogTag: [] },
     };
   }
 }

@@ -1,29 +1,41 @@
 import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
-import {imageKitLoader } from '@/helper/Helper';
+import { imageKitLoader } from '@/helper/Helper';
 import styles from '../../../styles/BlogItem2.module.css';
 import { staticBlurDataUrl } from '@/utils/staticBlurDataUrl';
-const BlogItem2 = ({ data}) => {
-return (
-        <>
-            <div className={`${styles.blog_card} mb-3`}>
-                <Link href={`/blogs/${data.slug}`}> 
-                <div className={styles.image_container}>
-                <Image loader={imageKitLoader} src={`${data.thumbnail}`} alt={data.title} width={100} height={100} sizes='(max-width:50px) 2vw, (max-width:425px) 50vw, 75vw' quality={60} placeholder='blur'  blurDataURL={staticBlurDataUrl()} priority={true} className={styles.img_fluid}/>
-                    <div className={styles.caption}>
-                        <h4 className={styles.caption_text}>{data.title.length > 80 ? `${data.title.substring(0, 50)}...` : data.title}</h4>
-                    </div>
-                    <div className={styles.overlay}>
-                        <div className={styles.overlay_content}>
-                            {/* <h4 className={styles.title}>{data.title.length > 80 ? `${data.title.substring(0, 50)}...` : data.title}</h4> */}
-                            {/* <button className='btns btn-orange view-blog'></button> */}
-                        </div>
-                    </div>
-                </div>
-                    </Link>
+const BlogItem2 = ({ data }) => {
+    return (
+        <Link href={`/blogs/${data.slug}`} className={styles.blogCard}>
+            <div className={styles.imageContainer}>
+                {data.category && (
+                    <span className={styles.categoryTag}>
+                        {typeof data.category === 'object' ? (data.category[0]?.title || data.category.title) : data.category}
+                    </span>
+                )}
+                <Image
+                    loader={imageKitLoader}
+                    src={`${data.thumbnail}`}
+                    alt={data.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    quality={75}
+                    placeholder="blur"
+                    blurDataURL={staticBlurDataUrl()}
+                    className={styles.imgFluid}
+                />
             </div>
-        </>
-    )
-}
+            <div className={styles.content}>
+                <h3 className={styles.title}>{data.title}</h3>
+                <p className={styles.shortDesc}>{data.shortDesc}</p>
+                <div className={styles.cardFooter}>
+                    <span className={styles.readMore}>
+                        Read Article <i className="fas fa-arrow-right"></i>
+                    </span>
+                    <span className={styles.date}>Dubai Insight</span>
+                </div>
+            </div>
+        </Link>
+    );
+};
 export default BlogItem2

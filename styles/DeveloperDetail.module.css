@@ -1,121 +1,249 @@
-.detailSection {
-    padding: 60px 0;
+/* Luxury Premium Developer Detail - Magazine Style */
+
+.pageWrapper {
     background: #ffffff;
+    min-height: 100vh;
 }
 
-.developerHeader {
+/* --- Creative Overlapping Header --- */
+.combinedHeader {
+    background: #272727 !important;
+    padding: 40px 0 100px !important;
+    border-bottom: 1px solid #dcdcdc;
+    position: relative;
+    overflow: hidden;
+}
+
+.combinedHeader::after {
+    content: 'DEVELOPER';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 15vw;
+    font-weight: 950;
+    color: rgb(54 54 54 / 55%);
+    z-index: 1;
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 5vw;
+}
+
+.headerFlex {
     display: flex;
-    align-items: flex-start;
-    gap: 40px;
-    margin-bottom: 50px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid #edf2f7;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
 }
 
-.logoContainer {
-    flex: 0 0 200px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+.titleBox {
+    flex: 1;
+}
+
+.mainTitle {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    padding-left: 25px;
+    border-left: 6px solid #d3122a;
+}
+
+.mainTitle span {
+    color: #d3122a;
+}
+
+.headerDesc {
+    font-size: 1.1rem;
+    color: #fafafa;
+    margin: 0;
+    font-weight: 500;
+    max-width: 600px;
+}
+
+/* --- Developer Identity Card (Highlighted) --- */
+.detailSection {
+    margin-top: -60px;
+    padding-bottom: 80px;
+    position: relative;
+    z-index: 10;
+}
+
+.developerCard {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 45px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08);
     border: 1px solid #f0f0f0;
 }
 
-.logoContainer img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
+.identityRow {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
 }
 
-.infoContainer {
+.logoBox {
+    flex: 0 0 240px;
+    background: #e9e9e9;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eef1f5;
+    text-align: center;
+}
+
+.contentBox {
     flex: 1;
+}
+
+.devBadge {
+    display: inline-block;
+    background: rgba(211, 18, 42, 0.08);
+    color: #d3122a;
+    padding: 6px 16px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
 }
 
 .devName {
     font-size: 2.5rem;
     font-weight: 800;
-    color: #1a202c;
-    margin-bottom: 15px;
+    color: #111;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
 }
 
 .devDescription {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #4a5568;
+    color: #444;
+    margin-bottom: 35px;
 }
 
-.statsSection {
-    margin-top: 20px;
+/* --- Creative Stats Highlight --- */
+.statsHighlight {
     display: flex;
-    gap: 30px;
+    gap: 25px;
 }
 
-.statItem {
-    background: #f8fafc;
-    padding: 15px 25px;
-    border-radius: 12px;
-    border-left: 4px solid #d3122a;
+.highlightCard {
+    background: #fdfdfd;
+    padding: 25px 35px;
+    border-radius: 16px;
+    border: 1px solid #f5f5f5;
+    flex: 1;
+    transition: all 0.4s ease;
+    text-align: center;
+    position: relative;
 }
 
-.statValue {
+.highlightCard:hover {
+    transform: translateY(-5px);
+    border-color: #d3122a;
+    box-shadow: 0 15px 35px rgba(211, 18, 42, 0.06);
+}
+
+.statVal {
     display: block;
-    font-size: 1.5rem;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #d3122a;
+    margin-bottom: 5px;
+}
+
+.statLab {
+    font-size: 0.75rem;
     font-weight: 700;
-    color: #1a202c;
-}
-
-.statLabel {
-    font-size: 0.85rem;
-    color: #718096;
+    color: #888;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
 
-.propertiesSection {
-    padding-top: 40px;
+/* --- Listing Section --- */
+.listingWrapper {
+    margin-top: 60px;
 }
 
 .sectionTitle {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1a202c;
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 15px;
 }
 
 .sectionTitle::after {
     content: '';
-    flex: 1;
-    height: 2px;
-    background: #edf2f7;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: #d3122a;
+    border-radius: 2px;
 }
 
-.propertyGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 30px;
+/* --- Sidebar Style --- */
+.editorialSidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.widgetCard {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 35px;
+    border: 1px solid #eef1f5;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+    position: relative;
+    overflow: hidden;
+}
+
+.widgetTitle {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.widgetTitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: #d3122a;
 }
 
 @media (max-width: 991px) {
-    .developerHeader {
+    .identityRow {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 20px;
     }
 
-    .logoContainer {
-        flex: 0 0 150px;
-        width: 150px;
+    .logoBox {
+        margin-top: -80px;
     }
 
-    .statsSection {
-        justify-content: center;
+    .statsHighlight {
+        flex-direction: column;
     }
 
-    .propertyGrid {
-        grid-template-columns: 1fr;
+    .mainTitle {
+        font-size: 2.2rem;
     }
 }

@@ -61,7 +61,7 @@ const Map = () => {
         placeholder="Search for a location"
       />
       <div className="col-md-12">
-        <div id="map" style={{ width: '100%', height: '400px' }}></div>
+        <div id="map" style={{ width: '100%', height: '500px' }}></div>
       </div>
       <style>
         {`

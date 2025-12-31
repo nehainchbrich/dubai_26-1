@@ -7,7 +7,7 @@ import { fetchData } from '@/config/fetchApi';
 import API_URLS from '@/config/apiconfig';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-const options = {loop: true,nav: false,items:1,dots: false,autoplay: true,autoplayHoverPause: true};
+const options = { loop: true, nav: false, items: 1, dots: false, autoplay: true, autoplayHoverPause: true };
 const LatestProperty = () => {
   const [property, setProperty] = useState([]);
   const router = useRouter();
@@ -121,4 +121,3 @@ const LatestProperty = () => {
 };
 
 export default LatestProperty;
- 

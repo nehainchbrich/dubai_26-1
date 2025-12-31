@@ -6,9 +6,9 @@ import { fetchBlog } from '@/config/fetchApi';
 import { useRouter } from 'next/router';
 import { imageKitLoader } from '@/helper/Helper';
 import { staticBlurDataUrl } from '@/utils/staticBlurDataUrl';
-const options = {loop: true,nav: false,items:1,dots: false,autoplay: true,autoplayHoverPause: true};
+const options = { loop: true, nav: false, items: 1, dots: false, autoplay: true, autoplayHoverPause: true };
 const LatestBlog = () => {
- const [blogData, setBlogData] = useState(null);
+  const [blogData, setBlogData] = useState(null);
   const router = useRouter();
 
   const fetchData = async () => {
@@ -56,26 +56,26 @@ const LatestBlog = () => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router.events]);
- return (
+  return (
     <>
-    {blogData ? (
-    <div className='blog_card my-3'>
-      <h4>Popular Blog</h4>
-      <hr/>
-    <OwlCarousel className="owl-theme" {...options}>
-      {blogData && blogData.slice(0, 5).map((item, index)=>(
-          <div className='col-md-12' key={index}>
-              <Image loader={imageKitLoader} src={`${item.thumbnail}`}  title={item.title} alt={item.title} className='img-fluid' width={100} height={100} quality={60}  placeholder="blur" blurDataURL={staticBlurDataUrl()} sizes='(max-width:50px) 2vw, (max-width:425px) 50vw, 75vw'/>
-              <Link href={`/blogs/${item.slug}`}> <p className='text-center'>{item.title}</p></Link>
-          </div>
-        ))}
-    </OwlCarousel>
-    </div>
-     ) : (
-      <p>Loading blog data...</p>
+      {blogData ? (
+        <div className='blog_card my-3'>
+          <h4>Popular Blog</h4>
+          <hr />
+          <OwlCarousel className="owl-theme" {...options}>
+            {blogData && blogData.slice(0, 5).map((item, index) => (
+              <div className='col-md-12' key={index}>
+                <Image loader={imageKitLoader} src={`${item.thumbnail}`} title={item.title} alt={item.title} className='img-fluid' width={100} height={100} quality={60} placeholder="blur" blurDataURL={staticBlurDataUrl()} sizes='(max-width:50px) 2vw, (max-width:425px) 50vw, 75vw' />
+                <Link href={`/blogs/${item.slug}`}> <p className='text-center'>{item.title}</p></Link>
+              </div>
+            ))}
+          </OwlCarousel>
+        </div>
+      ) : (
+        <p>Loading blog data...</p>
       )}
-    <style jsx>
-    {`
+      <style jsx>
+        {`
     .blog_card {
    
       border-radius: 10px;
@@ -91,7 +91,7 @@ const LatestBlog = () => {
       font-size:14px;
    }
    `}
-    </style>
+      </style>
     </>
   )
 }

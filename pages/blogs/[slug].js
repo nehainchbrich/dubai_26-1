@@ -9,34 +9,48 @@ import Link from "next/link";
 import Image from "next/image";
 import OfferBlog from '@/components/expo_new/OfferBlog';
 
+import detailStyles from '@/styles/blogs/BlogDetail.module.css';
+
 const Slug = ({ blog, blogCat, blogTag, comment, latestBlog, meta, event }) => {
   const activeExpos = Array.isArray(event)
     ? event.filter((expo) => {
-        const status = (expo.status || "").toUpperCase();
-        return (
-          status === "ACTIVE" ||
-          (status === "UPCOMING" && Number(expo.default_status) === 1)
-        );
-      })
+      const status = (expo.status || "").toUpperCase();
+      return (
+        status === "ACTIVE" ||
+        (status === "UPCOMING" && Number(expo.default_status) === 1)
+      );
+    })
     : [];
 
   return (
-    <div>
-      {/* <CommonBanner title={blog.title} meta={meta} /> */}
-    <OfferBlog event={activeExpos}/>
+    <div className={detailStyles.pageWrapper}>
+      <OfferBlog event={activeExpos} />
 
-      <div className="container mb-5 mt-4">
+      <header className={detailStyles.titleSection}>
+        <div className="container">
+          {blog.category && (
+            <span className={detailStyles.categoryBadge}>
+              {typeof blog.category === 'object' ? (blog.category[0]?.title || blog.category.title) : blog.category}
+            </span>
+          )}
+          <h1 className={detailStyles.mainTitle}>{blog.title}</h1>
+          <div className={detailStyles.metaInfo}>
+            <span><i className="far fa-calendar-alt"></i> {new Date(blog.createdAt || Date.now()).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+            <span><i className="far fa-user"></i> Inch & Brick Editorial</span>
+            <span><i className="far fa-clock"></i> 5 Min Read</span>
+          </div>
+        </div>
+      </header>
+
+      <div className={`${detailStyles.contentBody} container`}>
         <div className="row">
           {/* Left Section */}
-          <div className="col-md-8 ads">
-          
+          <div className="col-md-8">
             <LeftSide data={blog} comment={comment} />
           </div>
 
           {/* Right Section */}
           <div className="col-md-4">
-          
-
             <RightSide
               category={blogCat}
               tags={blogTag}
@@ -45,9 +59,6 @@ const Slug = ({ blog, blogCat, blogTag, comment, latestBlog, meta, event }) => {
           </div>
         </div>
       </div>
-
-      {/* Scoped CSS */}
-    
     </div>
   );
 };

@@ -83,7 +83,7 @@ const TrendingProjects = ({ data }) => {
                                 return (
                                     <Link
                                         key={index}
-                                        href={`/property-in-dubai/${project.slug}`}
+                                        href={`/properties/${project.slug}`}
                                         className={styles.projectCard}
                                     >
                                         <div className={styles.imageBox}>

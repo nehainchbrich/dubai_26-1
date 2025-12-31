@@ -12,16 +12,20 @@ const index = ({ developer, developerPage, meta }) => {
   const { data } = developer;
 
   return (
-    <>
-      <CommonBanner title={developerPage.title} meta={meta} />
+    <div className={styles.pageWrapper}>
+      <header className={`${styles.titleSection} ${styles.lightHeader}`}>
+        <div className="container">
+          <span className={styles.countLabel}>{data.length} Global Developers</span>
+          <h1 className={styles.mainTitle}>{developerPage.title}</h1>
+          <p className={styles.headerDesc}>Partnering with Dubai's most visionary real estate creators</p>
+        </div>
+      </header>
 
       <section className={styles.listingSection}>
         <div className='container'>
           {developerPage && (
             <div className={styles.titleWrapper}>
-              <h2 className={styles.mainTitle}>
-                Real Estate <span>Developers</span> in Dubai
-              </h2>
+              <h2 className={styles.gridTitle}>Featured <span>Developers</span></h2>
               <div
                 className={styles.description}
                 dangerouslySetInnerHTML={{ __html: developerPage.description }}
@@ -58,7 +62,7 @@ const index = ({ developer, developerPage, meta }) => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }
 
