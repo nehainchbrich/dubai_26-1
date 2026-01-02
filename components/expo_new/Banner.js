@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,17 +9,28 @@ import { staticBlurDataUrl } from "@/utils/staticBlurDataUrl";
 import Developers from "@/components/expo_new/Developers";
 import { usePathname } from "next/navigation";
 
-function Banner({ data = [], developer, section, dSection, event }) {
-  const activeExpos = Array.isArray(event)
-    ? event.some(
-      (e) =>
-        e.status?.toUpperCase() === "ACTIVE" ||
-        (e.status?.toUpperCase() === "UPCOMING" &&
-          Number(e.default_status) === 1)
-    )
-    : false;
-
+function Banner({ data = {}, developer, section, dSection, event = [] }) {
   const pathname = usePathname();
+
+  // Normalize event status
+  const normalizedEvents = Array.isArray(event)
+    ? event.map((e) => ({
+      ...e,
+      status: e.status?.toUpperCase(),
+    }))
+    : [];
+
+  // Priority: ACTIVE → UPCOMING (default) → null
+  const activeEvent = normalizedEvents.find(
+    (e) => e.status === "ACTIVE"
+  );
+
+  const upcomingEvent = normalizedEvents.find(
+    (e) => e.status === "UPCOMING" && Number(e.default_status) === 1
+  );
+
+  const bannerEvent = activeEvent || upcomingEvent || null;
+
   const shouldShowDeveloper =
     pathname.startsWith("/events") || Boolean(dSection);
 
@@ -34,12 +47,13 @@ function Banner({ data = [], developer, section, dSection, event }) {
         </h1>
 
         <p className={styles.description}>
-          Meet Dubai’s most trusted developers under one roof. Discover luxury,
-          investment opportunities, and future-ready homes.
+          {bannerEvent
+            ? `${bannerEvent.venue || ""}${bannerEvent.city ? `, ${bannerEvent.city}` : ""}`
+            : "Meet Dubai’s most trusted developers under one roof. Discover luxury, investment opportunities, and future-ready homes."}
         </p>
 
         <div className={styles.actions}>
-          {activeExpos ? (
+          {bannerEvent ? (
             <Link href="/expo-invitation" className={styles.primaryBtn}>
               Get VIP Pass
             </Link>
@@ -56,8 +70,12 @@ function Banner({ data = [], developer, section, dSection, event }) {
         <div className={styles.frame}>
           <Image
             loader={imageKitLoader}
-            src={data.thumbnail}
-            alt={data.title || "Expo"}
+            src={
+              bannerEvent?.venue_img ||
+              bannerEvent?.thumbnail ||
+              data.thumbnail
+            }
+            alt={bannerEvent?.eventName || data.title || "Expo"}
             fill
             className={styles.image}
             placeholder="blur"
