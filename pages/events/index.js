@@ -34,11 +34,11 @@ const Index = ({ developer, team, press, event, gallery, meta, blog, category, t
             <div className="col-lg-9 col-md-12">
 
               {/* Show Expo Form for Active Events */}
-              {activeExpos.length > 0 && (
+              {/* {activeExpos.length > 0 && (
                 <div className="mb-5">
                   <ExpoFrm data={activeExpos} team={team} />
                 </div>
-              )}
+              )} */}
 
               {/* Show Other Events (Scheduled/Past) */}
               <Events data={otherExpos} />
