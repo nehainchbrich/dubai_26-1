@@ -6,6 +6,8 @@ import { expoDateFormat, imageKitLoader } from "@/helper/Helper";
 import Link from "next/link";
 import OwlCarousel from "@/components/OwlCarousel";
 
+const ACTIVE_STATUSES = ["ACTIVE", "ONGOING", "IN_PROGRESS", "RUNNING"];
+
 const Events = ({ data = [] }) => {
   const contentRefs = useRef([]);
 
@@ -20,8 +22,10 @@ const Events = ({ data = [] }) => {
     }))
     : [];
 
-  // ---------- HERO EVENT (PRIORITY) ----------
-  const activeEvent = events.find((e) => e.status === "ACTIVE");
+  // ---------- HERO EVENT ----------
+  const activeEvent = events.find((e) =>
+    ACTIVE_STATUSES.includes(e.status)
+  );
 
   const upcomingDefaultEvent = events.find(
     (e) => e.status === "UPCOMING" && Number(e.default_status) === 1
@@ -32,12 +36,11 @@ const Events = ({ data = [] }) => {
   // ---------- EVENT GROUPS ----------
   const currentEvents = events.filter(
     (e) =>
-      e.status === "ACTIVE" ||
+      ACTIVE_STATUSES.includes(e.status) ||
       (e.status === "UPCOMING" && Number(e.default_status) === 1)
   );
 
   const scheduledEvents = events.filter((e) => e.status === "UPCOMING");
-
   const pastEvents = events.filter((e) => e.status === "COMPLETED");
 
   const sections = [
@@ -68,13 +71,12 @@ const Events = ({ data = [] }) => {
   // ---------- FADE IN ----------
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries) =>
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add(styles.fadeIn);
           }
-        });
-      },
+        }),
       { threshold: 0.1 }
     );
 
@@ -95,7 +97,7 @@ const Events = ({ data = [] }) => {
           <div className={styles.heroCard}>
             <div className={styles.heroImageWrapper}>
               <div className={styles.heroBadge}>
-                {heroEvent.status === "ACTIVE"
+                {ACTIVE_STATUSES.includes(heroEvent.status)
                   ? "Happening Now"
                   : "Upcoming"}
               </div>
@@ -118,13 +120,13 @@ const Events = ({ data = [] }) => {
 
               <div className={styles.heroDetails}>
                 <div className={styles.heroDetailItem}>
-                  <i className="fas fa-map-marker-alt"></i>
+                  <i className="fas fa-map-marker-alt" />
                   <span>
                     {heroEvent.venue}, {heroEvent.city}
                   </span>
                 </div>
                 <div className={styles.heroDetailItem}>
-                  <i className="far fa-calendar-alt"></i>
+                  <i className="far fa-calendar-alt" />
                   <span>{getEventDateString(heroEvent.eventDate)}</span>
                 </div>
               </div>
@@ -170,14 +172,22 @@ const Events = ({ data = [] }) => {
                 992: { items: 3 },
               }}
             >
-              {section.expos.map((item, i) => (
-                <EventCard key={i} item={item} heroEvent={heroEvent} />
+              {section.expos.map((item) => (
+                <EventCard
+                  key={item.id}
+                  item={item}
+                  heroEvent={heroEvent}
+                />
               ))}
             </OwlCarousel>
           ) : (
             <div className={styles.eventsGrid}>
-              {section.expos.map((item, i) => (
-                <EventCard key={i} item={item} heroEvent={heroEvent} />
+              {section.expos.map((item) => (
+                <EventCard
+                  key={item.id}
+                  item={item}
+                  heroEvent={heroEvent}
+                />
               ))}
             </div>
           )}
@@ -214,7 +224,7 @@ const EventCard = ({ item, heroEvent }) => {
 
       <div className={styles.cardContent}>
         <div className={styles.cardVenue}>
-          <i className="fas fa-map-marker-alt"></i> {item.venue}
+          <i className="fas fa-map-marker-alt" /> {item.venue}
         </div>
         <h3 className={styles.cardTitle}>{item.eventName}</h3>
       </div>
