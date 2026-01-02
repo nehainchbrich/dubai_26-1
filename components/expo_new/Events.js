@@ -14,7 +14,7 @@ const Events = ({ data = [] }) => {
   const normalizeStatus = (status) =>
     typeof status === "string" ? status.trim().toUpperCase() : "";
 
-  // ---------- NORMALIZE EVENTS ----------
+  // Normalize events
   const events = Array.isArray(data)
     ? data.map((e) => ({
       ...e,
@@ -22,7 +22,7 @@ const Events = ({ data = [] }) => {
     }))
     : [];
 
-  // ---------- HERO EVENT ----------
+  // Hero event priority
   const activeEvent = events.find((e) =>
     ACTIVE_STATUSES.includes(e.status)
   );
@@ -33,7 +33,7 @@ const Events = ({ data = [] }) => {
 
   const heroEvent = activeEvent || upcomingDefaultEvent || null;
 
-  // ---------- EVENT GROUPS ----------
+  // Groups
   const currentEvents = events.filter(
     (e) =>
       ACTIVE_STATUSES.includes(e.status) ||
@@ -62,21 +62,17 @@ const Events = ({ data = [] }) => {
     },
   ].filter((s) => s.expos.length > 0);
 
-  // ---------- DATE FORMAT ----------
-  const getEventDateString = (date) => {
-    if (!date) return "";
-    return expoDateFormat(date).join(", ");
-  };
+  const getEventDateString = (date) =>
+    date ? expoDateFormat(date).join(", ") : "";
 
-  // ---------- FADE IN ----------
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) =>
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.fadeIn);
-          }
-        }),
+        entries.forEach(
+          (entry) =>
+            entry.isIntersecting &&
+            entry.target.classList.add(styles.fadeIn)
+        ),
       { threshold: 0.1 }
     );
 
@@ -91,7 +87,7 @@ const Events = ({ data = [] }) => {
         Showcasing Dubai’s Finest Properties Across India
       </div>
 
-      {/* ---------- HERO EVENT ---------- */}
+      {/* HERO EVENT */}
       {heroEvent && (
         <div className={styles.heroEventWrapper}>
           <div className={styles.heroCard}>
@@ -117,18 +113,9 @@ const Events = ({ data = [] }) => {
 
             <div className={styles.heroContent}>
               <h2 className={styles.heroTitle}>{heroEvent.eventName}</h2>
-
               <div className={styles.heroDetails}>
-                <div className={styles.heroDetailItem}>
-                  <i className="fas fa-map-marker-alt" />
-                  <span>
-                    {heroEvent.venue}, {heroEvent.city}
-                  </span>
-                </div>
-                <div className={styles.heroDetailItem}>
-                  <i className="far fa-calendar-alt" />
-                  <span>{getEventDateString(heroEvent.eventDate)}</span>
-                </div>
+                <span>{heroEvent.venue}, {heroEvent.city}</span>
+                <span>{getEventDateString(heroEvent.eventDate)}</span>
               </div>
 
               <div className={styles.heroActions}>
@@ -147,7 +134,7 @@ const Events = ({ data = [] }) => {
         </div>
       )}
 
-      {/* ---------- EVENT SECTIONS ---------- */}
+      {/* EVENT SECTIONS */}
       {sections.map((section, idx) => (
         <div
           key={idx}
@@ -155,13 +142,12 @@ const Events = ({ data = [] }) => {
           ref={(el) => (contentRefs.current[idx] = el)}
         >
           <div className={styles.sectionHeader}>
-            <h3 className={styles.sectionTitle}>{section.title}</h3>
-            <p className={styles.sectionDesc}>{section.desc}</p>
+            <h3>{section.title}</h3>
+            <p>{section.desc}</p>
           </div>
 
           {section.expos.length > 1 ? (
             <OwlCarousel
-              className="owl-theme"
               loop={false}
               margin={30}
               nav
@@ -197,39 +183,32 @@ const Events = ({ data = [] }) => {
   );
 };
 
-// ---------- EVENT CARD ----------
-const EventCard = ({ item, heroEvent }) => {
-  const link =
-    item.status === "UPCOMING"
-      ? `/blogs/${item.blog_link}`
-      : `/events/${item.slug}`;
+const EventCard = ({ item, heroEvent }) => (
+  <Link
+    href={item.status === "UPCOMING" ? `/blogs/${item.blog_link}` : `/events/${item.slug}`}
+    className={styles.eventCard}
+  >
+    <div className={styles.cardImageWrapper}>
+      <div className={styles.statusBadge}>{item.status}</div>
 
-  return (
-    <Link href={link} className={styles.eventCard}>
-      <div className={styles.cardImageWrapper}>
-        <div className={styles.statusBadge}>{item.status}</div>
+      {item.id === heroEvent?.id && (
+        <span className={styles.featuredBadge}>Featured</span>
+      )}
 
-        {item.id === heroEvent?.id && (
-          <span className={styles.featuredBadge}>Featured</span>
-        )}
+      <Image
+        loader={imageKitLoader}
+        src={item.venue_img || item.thumbnail || "/images/placeholder.jpg"}
+        alt={item.eventName}
+        fill
+        className={styles.cardImage}
+      />
+    </div>
 
-        <Image
-          loader={imageKitLoader}
-          src={item.venue_img || item.thumbnail || "/images/placeholder.jpg"}
-          alt={item.eventName}
-          fill
-          className={styles.cardImage}
-        />
-      </div>
-
-      <div className={styles.cardContent}>
-        <div className={styles.cardVenue}>
-          <i className="fas fa-map-marker-alt" /> {item.venue}
-        </div>
-        <h3 className={styles.cardTitle}>{item.eventName}</h3>
-      </div>
-    </Link>
-  );
-};
+    <div className={styles.cardContent}>
+      <h3>{item.eventName}</h3>
+      <p>{item.venue}</p>
+    </div>
+  </Link>
+);
 
 export default Events;
