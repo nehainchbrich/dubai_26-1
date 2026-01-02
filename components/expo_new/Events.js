@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "../../styles/expo_new/Events.module.css";
 import Image from "next/image";
 import {
@@ -8,6 +8,8 @@ import {
   imageKitLoader,
 } from "@/helper/Helper";
 import Link from "next/link";
+import OwlCarousel from "@/components/OwlCarousel";
+
 
 const Events = ({ data = [] }) => {
   const contentRefs = useRef([]);
@@ -23,10 +25,6 @@ const Events = ({ data = [] }) => {
       (normalizeStatus(expo.status) === "UPCOMING" &&
         Number(expo.default_status) === 1)
   );
-  console.log(activeExpos);
-  const expoDate = activeExpos.length
-    ? formatEventDatesWithSuffix(activeExpos[0].eventDate)
-    : "";
 
   const upcomingExpos = data.filter(
     (expo) => normalizeStatus(expo.status) === "UPCOMING"
@@ -35,43 +33,37 @@ const Events = ({ data = [] }) => {
     (expo) => normalizeStatus(expo.status) === "COMPLETED"
   );
 
+  // Helper for date formatting
+  const getEventDateString = (date) => {
+    if (!date) return "";
+    const dates = expoDateFormat(date);
+    return dates.join(", ");
+  };
+
+  // Logic to separate the Hero event (first active event)
+  const heroEvent = activeExpos.length > 0 ? activeExpos[0] : null;
+  const remainingActiveExpos = activeExpos.length > 1 ? activeExpos.slice(1) : [];
+
   const sections = [
     {
       title: "Current Events",
-      desc: activeExpos.length
-        ? `${activeExpos[0]?.venue} ${expoDate[0]?.label} and ${expoDate[1]?.label}`
-        : "No current events",
-      expos: activeExpos,
+      desc: remainingActiveExpos.length
+        ? "Other events happening now."
+        : "",
+      expos: remainingActiveExpos,
+      isCurrent: true,
     },
     {
       title: "Scheduled Events",
-      desc: `${upcomingExpos[0]?.city} Stay tuned for Details `,
+      desc: `Upcoming opportunities to explore Dubai properties. Stay tuned.`,
       expos: upcomingExpos,
     },
     {
       title: "Past Events",
-      desc: "A series of exclusive events that brought Dubai’s best projects to India.",
+      desc: "A series of exclusive events that brought Dubai’s best projects to India.",
       expos: completedExpos,
     },
   ].filter((s) => s.expos.length > 0);
-
-  const [activeIndexes, setActiveIndexes] = useState(sections.map(() => 0));
-
-  const handleNext = (sectionIdx, total) => {
-    setActiveIndexes((prev) => {
-      const updated = [...prev];
-      updated[sectionIdx] = (updated[sectionIdx] + 1) % total;
-      return updated;
-    });
-  };
-
-  const handlePrev = (sectionIdx, total) => {
-    setActiveIndexes((prev) => {
-      const updated = [...prev];
-      updated[sectionIdx] = (updated[sectionIdx] - 1 + total) % total;
-      return updated;
-    });
-  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -82,7 +74,7 @@ const Events = ({ data = [] }) => {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
 
     contentRefs.current.forEach((el) => el && observer.observe(el));
@@ -93,154 +85,185 @@ const Events = ({ data = [] }) => {
     <div className={styles.containerEvent} id="events">
       <div className={styles.OurFormulaSectionHeading}>Our Events</div>
       <div className={styles.OurFormulaFormulaSubHeading}>
-        <p>
-          {`After showcasing Dubai’s finest properties across India, we’re hosting the 4th edition of the Dubai Property Expo in Hyderabad.`}
-        </p>
+        Showcasing Dubai’s Finest Properties Across India
       </div>
 
-      <div className={styles.backgroundGradient}>
-        <div
-          className={`${styles.WhatWeDoWhatWeDoContainer} ${styles.pageContainer}`}
-        >
-          {sections.map((section, idx) => (
-            <div key={idx} className={styles.WhatWeDoWhatWeDoWrap}>
-              <div>
-                {/* Slider */}
-                <div
-                  ref={(el) => (contentRefs.current[idx] = el)}
-                  className={styles.WhatWeDoWhatWeDoCotentList}
-                >
-                  <div className={styles.WhatWeDoBoxContent}>
-                    <section className={styles.eventsSection}>
-                      <div className={styles.eventTitle}>
-                        <h3>{section.title}</h3>
-                        <p>{section.desc}</p>
-                        {section.title === "Current Events" &&
-                          activeExpos.length > 0 && (
-                            <Link
-                              className={styles.btnClass}
-                              href="/expo-invitation"
-                            >
-                              Book Your Free VIP Pass
-                            </Link>
-                          )}
-                      </div>
-
-                      {/* ✅ Whole section clickable */}
-                      {section.expos.length > 0 && (
-                        <Link
-                          href={normalizeStatus(
-                            section.expos[activeIndexes[idx]].status
-                          ) !== "UPCOMING"
-                            ? `/events/${section.expos[activeIndexes[idx]].slug}`
-                            : `/blogs/${section.expos[activeIndexes[idx]].blog_link}`
-                          }
-                          className={styles.eventsSliderWrapper}
-                        >
-                          <div
-                            className={styles.eventsSlider}
-                            style={{
-                              transform: `translateX(-${activeIndexes[idx] * 100
-                                }%)`,
-                              transition: "transform 0.6s ease",
-                              display: "flex",
-                            }}
-                          >
-                            {section.expos.map((item, i) => (
-                              <div
-                                key={i}
-                                className={styles.eventCard}
-                                style={{ minWidth: "100%" }}
-                              >
-                                <div className={styles.eventContent}>
-                                  <div className={styles.eventImg}>
-                                    <Image
-                                      loader={imageKitLoader}
-                                      src={item.venue_img}
-                                      alt={item.title}
-                                      width={400}
-                                      height={250}
-                                    />
-                                  </div>
-                                  <div className={styles.zIndex}>
-                                    <h3>{item.eventName}</h3>
-                                    <p>
-                                      <b>{item.venue}</b>
-                                    </p>
-                                    <p>
-                                      {item.eventDate
-                                        ? expoDateFormat(item.eventDate).join(
-                                          ", "
-                                        )
-                                        : ""}
-                                    </p>
-
-                                    {/* ✅ Keep per-card View More button */}
-                                    <div className={styles.dFlex}>
-                                      {normalizeStatus(item.status) !==
-                                        "UPCOMING" ? (
-                                        <Link
-                                          className={styles.viewMore}
-                                          href={`/events/${item.slug}`}
-                                          onClick={(e) =>
-                                            e.stopPropagation()
-                                          } // prevent wrapper link
-                                        >
-                                          View More
-                                        </Link>
-                                      ) : (
-                                        <Link
-                                          className={styles.viewMore}
-                                          href={`/blogs/${item.blog_link}`}
-                                          onClick={(e) =>
-                                            e.stopPropagation()
-                                          }
-                                        >
-                                          View More
-                                        </Link>
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-
-                          {/* Controls */}
-                          {section.expos.length > 1 && (
-                            <>
-                              <div
-                                className={`${styles.eventArrow} ${styles.left}`}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  handlePrev(idx, section.expos.length);
-                                }}
-                              >
-                                ❮
-                              </div>
-                              <div
-                                className={`${styles.eventArrow} ${styles.right}`}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  handleNext(idx, section.expos.length);
-                                }}
-                              >
-                                ❯
-                              </div>
-                            </>
-                          )}
-                        </Link>
-                      )}
-                    </section>
-                  </div>
+      {/* Hero Section for Primary Active Event */}
+      {heroEvent && (
+        <div className={styles.heroEventWrapper}>
+          <div className={styles.heroCard}>
+            <div className={styles.heroImageWrapper}>
+              <div className={styles.heroBadge}>
+                {heroEvent.default_status === 1 ? "Upcoming" : "Happening Now"}
+              </div>
+              <Image
+                loader={imageKitLoader}
+                src={heroEvent.venue_img || heroEvent.thumbnail || '/images/placeholder.jpg'}
+                alt={heroEvent.eventName}
+                fill
+                className={styles.heroImage}
+              />
+            </div>
+            <div className={styles.heroContent}>
+              <h2 className={styles.heroTitle}>{heroEvent.eventName}</h2>
+              <div className={styles.heroDetails}>
+                <div className={styles.heroDetailItem}>
+                  <i className="fas fa-map-marker-alt"></i>
+                  <span>{heroEvent.venue}, {heroEvent.city}</span>
                 </div>
-                {/* End Slider */}
+                <div className={styles.heroDetailItem}>
+                  <i className="far fa-calendar-alt"></i>
+                  <span>{getEventDateString(heroEvent.eventDate)}</span>
+                </div>
+              </div>
+              <div className={styles.heroActions}>
+                <Link href="/expo-invitation" className={styles.primaryBtn}>
+                  Book VIP Pass
+                </Link>
+                <Link href={`/events/${heroEvent.slug}`} className={styles.secondaryBtn}>
+                  View Details
+                </Link>
               </div>
             </div>
-          ))}
+          </div>
         </div>
+      )}
+
+      <div>
+        {sections.map((section, idx) => (
+          <div
+            key={idx}
+            className={`${styles.sectionWrapper} ${styles.fadeIn}`} // Apply fadeIn directly or via ref
+            ref={(el) => (contentRefs.current[idx] = el)}
+            style={{ opacity: 0, animationFillMode: 'forwards' }} // Ensure opacity starts at 0 for animation
+          >
+            {/* Section Header */}
+            <div className={styles.sectionHeader}>
+              <div>
+                <h3 className={styles.sectionTitle}>{section.title}</h3>
+                <p className={styles.sectionDesc}>{section.desc}</p>
+              </div>
+            </div>
+
+            {/* Events Grid */}
+            {section.expos.length > 1 ? (
+              <OwlCarousel
+                className="owl-theme"
+                loop={false}
+                margin={30}
+                nav
+                dots={true}
+                responsive={{
+                  0: { items: 1 },
+                  768: { items: 2 },
+                  992: { items: 3 },
+                }}
+              >
+                {section.expos.map((item, i) => {
+                  const isUpcoming = normalizeStatus(item.status) === "UPCOMING";
+                  const linkHref = !isUpcoming
+                    ? `/events/${item.slug}`
+                    : `/blogs/${item.blog_link}`;
+
+                  return (
+                    <div key={i} className="item" style={{ padding: "5px" }}>
+                      <Link
+                        href={linkHref}
+                        className={styles.eventCard}
+                        style={{ textDecoration: "none", height: "100%", display: 'flex' }}
+                      >
+                        <div className={styles.cardImageWrapper}>
+                          <div className={styles.statusBadge}>
+                            {normalizeStatus(item.status)}
+                          </div>
+                          <Image
+                            loader={imageKitLoader}
+                            src={
+                              item.venue_img ||
+                              item.thumbnail ||
+                              "/images/placeholder.jpg"
+                            }
+                            alt={item.title || item.eventName}
+                            fill
+                            className={styles.cardImage}
+                          />
+                        </div>
+                        <div className={styles.cardContent}>
+                          <div className={styles.cardVenue}>
+                            <i className="fas fa-map-marker-alt"></i> {item.venue}
+                          </div>
+                          <h3 className={styles.cardTitle}>{item.eventName}</h3>
+                          <div className={styles.cardDate}>
+                            <i className="far fa-calendar-alt"></i>{" "}
+                            {getEventDateString(item.eventDate)}
+                          </div>
+
+                          <div className={styles.cardActions}>
+                            <span className={styles.viewMoreBtn}>
+                              View Details{" "}
+                              <i className="fas fa-arrow-right"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  );
+                })}
+              </OwlCarousel>
+            ) : (
+              <div className={styles.eventsGrid}>
+                {section.expos.map((item, i) => {
+                  const isUpcoming = normalizeStatus(item.status) === "UPCOMING";
+                  const linkHref = !isUpcoming
+                    ? `/events/${item.slug}`
+                    : `/blogs/${item.blog_link}`;
+
+                  return (
+                    <Link
+                      href={linkHref}
+                      key={i}
+                      className={styles.eventCard}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <div className={styles.cardImageWrapper}>
+                        <div className={styles.statusBadge}>
+                          {normalizeStatus(item.status)}
+                        </div>
+                        <Image
+                          loader={imageKitLoader}
+                          src={
+                            item.venue_img ||
+                            item.thumbnail ||
+                            "/images/placeholder.jpg"
+                          }
+                          alt={item.title || item.eventName}
+                          fill
+                          className={styles.cardImage}
+                        />
+                      </div>
+                      <div className={styles.cardContent}>
+                        <div className={styles.cardVenue}>
+                          <i className="fas fa-map-marker-alt"></i> {item.venue}
+                        </div>
+                        <h3 className={styles.cardTitle}>{item.eventName}</h3>
+                        <div className={styles.cardDate}>
+                          <i className="far fa-calendar-alt"></i>{" "}
+                          {getEventDateString(item.eventDate)}
+                        </div>
+
+                        <div className={styles.cardActions}>
+                          <span className={styles.viewMoreBtn}>
+                            View Details <i className="fas fa-arrow-right"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );
