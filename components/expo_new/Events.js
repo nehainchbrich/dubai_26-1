@@ -12,7 +12,7 @@ const Events = ({ data = [] }) => {
   const normalizeStatus = (status) =>
     typeof status === "string" ? status.trim().toUpperCase() : "";
 
-  // ---- NORMALIZED DATA ----
+  // ---------- NORMALIZE EVENTS ----------
   const events = Array.isArray(data)
     ? data.map((e) => ({
       ...e,
@@ -20,7 +20,7 @@ const Events = ({ data = [] }) => {
     }))
     : [];
 
-  // ---- PRIORITY SELECTION ----
+  // ---------- HERO EVENT (PRIORITY) ----------
   const activeEvent = events.find((e) => e.status === "ACTIVE");
 
   const upcomingDefaultEvent = events.find(
@@ -29,49 +29,43 @@ const Events = ({ data = [] }) => {
 
   const heroEvent = activeEvent || upcomingDefaultEvent || null;
 
-  // ---- LIST SECTIONS (exclude hero) ----
-  const remainingActiveEvents = events.filter(
-    (e) => e.status === "ACTIVE" && e.id !== heroEvent?.id
-  );
-
-  const upcomingEvents = events.filter(
+  // ---------- EVENT GROUPS ----------
+  const currentEvents = events.filter(
     (e) =>
-      e.status === "UPCOMING" &&
-      e.id !== heroEvent?.id
+      e.status === "ACTIVE" ||
+      (e.status === "UPCOMING" && Number(e.default_status) === 1)
   );
 
-  const completedEvents = events.filter(
-    (e) => e.status === "COMPLETED"
-  );
+  const scheduledEvents = events.filter((e) => e.status === "UPCOMING");
+
+  const pastEvents = events.filter((e) => e.status === "COMPLETED");
 
   const sections = [
     {
       title: "Current Events",
-      desc: remainingActiveEvents.length
-        ? "Other events happening now."
-        : "",
-      expos: remainingActiveEvents,
+      desc: "Events happening right now.",
+      expos: currentEvents,
     },
     {
       title: "Scheduled Events",
       desc: "Upcoming opportunities to explore Dubai properties.",
-      expos: upcomingEvents,
+      expos: scheduledEvents,
     },
     {
       title: "Past Events",
       desc:
         "A series of exclusive events that brought Dubai’s best projects to India.",
-      expos: completedEvents,
+      expos: pastEvents,
     },
   ].filter((s) => s.expos.length > 0);
 
-  // ---- DATE FORMAT ----
+  // ---------- DATE FORMAT ----------
   const getEventDateString = (date) => {
     if (!date) return "";
     return expoDateFormat(date).join(", ");
   };
 
-  // ---- FADE IN ----
+  // ---------- FADE IN ----------
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -95,7 +89,7 @@ const Events = ({ data = [] }) => {
         Showcasing Dubai’s Finest Properties Across India
       </div>
 
-      {/* -------- HERO EVENT -------- */}
+      {/* ---------- HERO EVENT ---------- */}
       {heroEvent && (
         <div className={styles.heroEventWrapper}>
           <div className={styles.heroCard}>
@@ -151,7 +145,7 @@ const Events = ({ data = [] }) => {
         </div>
       )}
 
-      {/* -------- OTHER SECTIONS -------- */}
+      {/* ---------- EVENT SECTIONS ---------- */}
       {sections.map((section, idx) => (
         <div
           key={idx}
@@ -177,13 +171,13 @@ const Events = ({ data = [] }) => {
               }}
             >
               {section.expos.map((item, i) => (
-                <EventCard key={i} item={item} />
+                <EventCard key={i} item={item} heroEvent={heroEvent} />
               ))}
             </OwlCarousel>
           ) : (
             <div className={styles.eventsGrid}>
               {section.expos.map((item, i) => (
-                <EventCard key={i} item={item} />
+                <EventCard key={i} item={item} heroEvent={heroEvent} />
               ))}
             </div>
           )}
@@ -193,7 +187,8 @@ const Events = ({ data = [] }) => {
   );
 };
 
-const EventCard = ({ item }) => {
+// ---------- EVENT CARD ----------
+const EventCard = ({ item, heroEvent }) => {
   const link =
     item.status === "UPCOMING"
       ? `/blogs/${item.blog_link}`
@@ -203,6 +198,11 @@ const EventCard = ({ item }) => {
     <Link href={link} className={styles.eventCard}>
       <div className={styles.cardImageWrapper}>
         <div className={styles.statusBadge}>{item.status}</div>
+
+        {item.id === heroEvent?.id && (
+          <span className={styles.featuredBadge}>Featured</span>
+        )}
+
         <Image
           loader={imageKitLoader}
           src={item.venue_img || item.thumbnail || "/images/placeholder.jpg"}
@@ -211,6 +211,7 @@ const EventCard = ({ item }) => {
           className={styles.cardImage}
         />
       </div>
+
       <div className={styles.cardContent}>
         <div className={styles.cardVenue}>
           <i className="fas fa-map-marker-alt"></i> {item.venue}
