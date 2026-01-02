@@ -1,69 +1,69 @@
-/* Light Premium Luxury - Clean, Airy & Sophisticated */
-
+/* =====================
+   CORE FEEL
+===================== */
 .pageWrapper {
-    background: #fdfdfd;
-    min-height: 100vh;
+    background: #fbfbfb;
     font-family: 'Inter', sans-serif;
-    color: #1a1a1a;
-    overflow-x: hidden;
+    color: #111;
 }
 
-/* --- Soft Airy Hero --- */
+.pageWrapper section {
+    padding: 64px 0;
+}
+
+/* =====================
+   HERO — EDITORIAL
+===================== */
 .heroSection {
-    padding: 140px 0 100px;
-    background: #ffffff;
-    position: relative;
-    overflow: hidden;
+    padding: 80px 0 60px;
 }
 
 .heroContent {
-    max-width: 800px;
+    max-width: 680px;
     margin: 0 auto;
     text-align: center;
 }
 
 .subBadge {
-    display: inline-block;
-    background: rgba(211, 18, 42, 0.05);
-    color: #d3122a;
-    padding: 8px 25px;
-    border-radius: 50px;
-    font-size: 0.8rem;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-bottom: 30px;
+    color: #d3122a;
+    margin-bottom: 14px;
+    display: inline-block;
 }
 
 .mainTitle {
-    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-size: clamp(2.1rem, 4.8vw, 3.2rem);
     font-weight: 900;
-    line-height: 1;
-    letter-spacing: -3px;
-    margin-bottom: 30px;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 14px;
 }
 
 .mainTitle span {
     color: #d3122a;
-    position: relative;
 }
 
 .headerDesc {
-    font-size: 1.2rem;
-    color: #666;
+    font-size: 0.95rem;
     line-height: 1.6;
-    font-weight: 400;
+    color: #555;
+    max-width: 520px;
+    margin: 0 auto;
 }
 
-/* --- Overlapping Content Design --- */
+/* =====================
+   STORY — ASYMMETRIC
+===================== */
 .storySection {
-    padding: 100px 0;
+    padding: 70px 0;
 }
 
 .overlapGrid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 48px;
     align-items: center;
 }
 
@@ -72,161 +72,151 @@
 }
 
 .mainImg {
-    width: 100%;
-    height: 700px;
+    height: 460px;
     object-fit: cover;
-    border-radius: 200px 20px 200px 20px;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
+    border-radius: 120px 20px 120px 20px;
+    filter: grayscale(10%);
 }
 
 .metaTag {
     position: absolute;
-    bottom: 40px;
-    right: -40px;
-    background: #d3122a;
+    bottom: 16px;
+    right: -16px;
+    padding: 14px 18px;
+    background: #111;
     color: #fff;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(211, 18, 42, 0.3);
-    text-align: center;
+    border-radius: 12px;
+    font-size: 0.7rem;
 }
 
 .metaNum {
-    font-size: 2.5rem;
+    font-size: 1.4rem;
     font-weight: 900;
-    line-height: 1;
     display: block;
 }
 
 .metaText {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 0.6rem;
+    opacity: 0.8;
 }
 
 .textSide h2 {
-    font-size: 2.8rem;
+    font-size: 1.9rem;
     font-weight: 800;
-    margin-bottom: 30px;
-    line-height: 1.1;
-    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+    line-height: 1.2;
 }
 
 .contentBody {
-    font-size: 1.15rem;
-    line-height: 1.8;
+    font-size: 0.95rem;
+    line-height: 1.65;
     color: #444;
 }
 
 .contentBody :global(p) {
-    margin-bottom: 25px;
+    margin-bottom: 14px;
 }
 
-/* --- Value Modules --- */
+/* =====================
+   VALUES — EDITORIAL CARDS
+===================== */
 .valuesWrapper {
-    background: #fff;
-    padding: 120px 0;
-    border-top: 1px solid #f0f0f0;
+    padding: 64px 0;
 }
 
 .sectionHeader {
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 36px;
 }
 
 .sectionHeader h3 {
-    font-size: 2.5rem;
+    font-size: 1.9rem;
     font-weight: 800;
 }
 
 .moduleGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+    gap: 22px;
 }
 
 .moduleCard {
-    padding: 40px;
-    border-radius: 24px;
-    background: #fdfdfd;
-    border: 1px solid #f5f5f5;
-    transition: all 0.4s ease;
+    padding: 26px;
+    border-radius: 18px;
+    background: #fff;
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
 }
 
 .moduleCard:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
-    background: #fff;
+    transform: translateY(-6px);
     border-color: #d3122a;
 }
 
 .iconCircle {
-    width: 60px;
-    height: 60px;
-    background: #fdfdfd;
-    border: 1px solid #eee;
+    width: 38px;
+    height: 38px;
+    font-size: 0.9rem;
+    background: #f8f8f8;
     border-radius: 50%;
+    margin-bottom: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #d3122a;
-    font-size: 1.5rem;
-    margin-bottom: 30px;
 }
 
 .moduleTitle {
-    font-size: 1.6rem;
-    font-weight: 800;
-    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
 }
 
 .moduleDesc {
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 0.88rem;
+    line-height: 1.55;
     color: #666;
 }
 
-/* --- Strategy Section --- */
+/* =====================
+   STRATEGY — MAGAZINE
+===================== */
 .strategyArea {
-    padding: 100px 0;
+    padding: 70px 0;
 }
 
 .strategyFlex {
     display: flex;
-    gap: 80px;
+    gap: 48px;
     align-items: center;
 }
 
-.stratText {
-    flex: 1;
+.strategyArea h2 {
+    font-size: 1.85rem;
+    margin-bottom: 12px;
 }
 
-.stratImg {
-    flex: 1;
-    border-radius: 40px;
-    overflow: hidden;
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.05);
+.stratImg img {
+    max-height: 380px;
+    border-radius: 24px;
+    object-fit: cover;
 }
 
-/* --- Minimal CTA --- */
+/* =====================
+   CTA — QUIET POWER
+===================== */
 .ctaBar {
-    padding: 80px 0;
-    text-align: center;
-    background: #fdfdfd;
+    padding: 48px 0;
+    background: #fff;
 }
 
 .btnClean {
-    display: inline-block;
-    border: 2px solid #111;
-    color: #111;
-    padding: 15px 45px;
-    border-radius: 50px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-decoration: none;
-    transition: all 0.3s;
+    padding: 11px 32px;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    border: 1.5px solid #111;
+    border-radius: 40px;
+    transition: all 0.25s ease;
 }
 
 .btnClean:hover {
@@ -234,6 +224,9 @@
     color: #fff;
 }
 
+/* =====================
+   RESPONSIVE
+===================== */
 @media (max-width: 991px) {
 
     .overlapGrid,
@@ -241,16 +234,25 @@
     .strategyFlex {
         grid-template-columns: 1fr;
         flex-direction: column;
-        gap: 40px;
+        gap: 28px;
     }
 
-    .textSide,
-    .stratText {
+    .mainImg {
+        height: 320px;
+    }
+
+    .heroContent,
+    .textSide {
         text-align: center;
     }
+}
 
-    .metaTag {
-        right: 0;
-        bottom: 20px;
+@media (max-width: 600px) {
+    .mainTitle {
+        font-size: 1.9rem;
+    }
+
+    .contentBody {
+        font-size: 0.88rem;
     }
 }
