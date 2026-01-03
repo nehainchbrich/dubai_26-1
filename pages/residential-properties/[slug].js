@@ -2,29 +2,55 @@ import React from 'react'
 import Website from '../layouts/website'
 import { fetchData } from '@/config/fetchApi'
 import API_URLS from '@/config/apiconfig'
-import { ImagePath } from '@/helper/Helper'
+import { ImagePath, imageKitLoader } from '@/helper/Helper'
 import ResidentialCard from '@/components/website/property/ResidentialCard'
 import styles from '@/styles/ResidentialLuxury.module.css'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 
 // Import Sidebar Widgets
 const LatestBlog = dynamic(() => import('@/components/website/blogs/LatestBlog'))
 const LatestProperty = dynamic(() => import('@/components/website/property/LatestProperty'))
 
 const Slug = ({ ptype, property, meta }) => {
-  const description = ImagePath(ptype.description)
+  const [isExpanded, setIsExpanded] = React.useState(false);
+  const description = ImagePath(ptype.description);
+  const isLongDescription = description?.length > 250;
 
   return (
     <div className={styles.pageWrapper}>
-      <header className={`${styles.titleSection} ${styles.lightHeader}`}>
-        <div className="container">
-          <span className={styles.countLabel}>Exclusive Collection</span>
-          <h1 className={styles.mainTitle}>
+      {/* LUXURY HERO SECTION */}
+      <section className={styles.residentialHero}>
+        <div className={styles.heroContent}>
+          <span className={styles.heroKicker}>Exclusive Collection</span>
+          <h1 className={styles.heroTitle}>
             {ptype.title} <span>Properties</span>
           </h1>
-          <div className={styles.headerDesc} dangerouslySetInnerHTML={{ __html: description }} />
+          <div className={`${styles.heroDesc} ${isExpanded ? styles.expanded : ""}`}>
+            <div dangerouslySetInnerHTML={{ __html: description }} />
+          </div>
+          {isLongDescription && (
+            <button
+              className={styles.knowMoreBtn}
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              {isExpanded ? "Show Less" : "Know More"}
+              <i className={`fas fa-chevron-${isExpanded ? "up" : "down"} ms-2`}></i>
+            </button>
+          )}
         </div>
-      </header>
+
+        <div className={styles.heroVisual}>
+          <Image
+            loader={imageKitLoader}
+            src={meta?.thumbnail || "/common/press-bg.jpg"}
+            alt={ptype.title}
+            fill
+            priority
+            className={styles.heroImage}
+          />
+        </div>
+      </section>
 
       <div className='container'>
         <section className={styles.filterContainer}>
