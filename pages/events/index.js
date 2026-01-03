@@ -14,16 +14,6 @@ import TrendingProjects from '@/components/website/home/TrendingProjects'
 
 
 const Index = ({ developer, team, press, event, gallery, meta, blog, category, tags, trending }) => {
-  // Filter active events for Expo Display
-  const activeExpos = event.filter((expo) =>
-    (expo.status === 'ACTIVE' || (expo.status === 'UPCOMING' && expo.default_status === 1))
-  );
-
-  // Filter other events for the standard grid list
-  const otherExpos = event.filter((expo) =>
-    !(expo.status === 'ACTIVE' || (expo.status === 'UPCOMING' && expo.default_status === 1))
-  );
-
   return (
     <>
       <section>
@@ -33,15 +23,9 @@ const Index = ({ developer, team, press, event, gallery, meta, blog, category, t
           <div className="row">
             <div className="col-lg-9 col-md-12">
 
-              {/* Show Expo Form for Active Events */}
-              {/* {activeExpos.length > 0 && (
-                <div className="mb-5">
-                  <ExpoFrm data={activeExpos} team={team} />
-                </div>
-              )} */}
 
-              {/* Show Other Events (Scheduled/Past) */}
-              <Events data={otherExpos} />
+              {/* Show All Events (Active/Scheduled/Past) handled by the component */}
+              <Events data={event} />
             </div>
             <div className="col-lg-3 col-md-12 mt-5 pe-lg-5">
               <div className="sticky-top" style={{ top: '120px', zIndex: 10 }}>

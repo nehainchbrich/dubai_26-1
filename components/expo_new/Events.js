@@ -40,8 +40,12 @@ const Events = ({ data = [] }) => {
       (e.status === "UPCOMING" && Number(e.default_status) === 1)
   );
 
-  const scheduledEvents = events.filter((e) => e.status === "UPCOMING");
-  const pastEvents = events.filter((e) => e.status === "COMPLETED");
+  const scheduledEvents = events.filter(
+    (e) => e.status === "UPCOMING" && Number(e.default_status) !== 1
+  );
+  const pastEvents = events.filter(
+    (e) => e.status === "COMPLETED" || e.status === "PAST"
+  );
 
   const sections = [
     {
