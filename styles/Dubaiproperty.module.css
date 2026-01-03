@@ -1,7 +1,226 @@
-@media(min-width:300px) and (max-width:768px){
-    .dubai_market{
-        padding: 10px;
-        width: 100%;
-        height: auto;
+.dubai_market_wrapper {
+    background: #fdfdfd;
+    color: #0b0b0e;
+    min-height: 100vh;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* --- 1. CREATIVE CINEMATIC HERO --- */
+.banner_wrapper {
+    background: #0b0b0e;
+    color: #fff;
+    padding: 160px 0 100px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    margin-top: -85px;
+    /* Pull under transparent header */
+}
+
+/* Background effects */
+.banner_wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 30%, rgba(197, 160, 89, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(211, 18, 42, 0.1) 0%, transparent 40%);
+    z-index: 1;
+}
+
+.banner_wrapper::after {
+    content: "MARKET";
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20vw;
+    font-weight: 950;
+    color: rgba(255, 255, 255, 0.02);
+    z-index: 0;
+    white-space: nowrap;
+    letter-spacing: 50px;
+    pointer-events: none;
+}
+
+.hero_content {
+    position: relative;
+    z-index: 10;
+}
+
+.kicker {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+    color: #c5a059;
+    font-weight: 800;
+    margin-bottom: 25px;
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    border-radius: 50px;
+}
+
+.mainTitle {
+    font-size: clamp(32px, 6vw, 72px);
+    font-weight: 950;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    letter-spacing: -1.5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainTitle span {
+    color: transparent;
+    -webkit-text-stroke: 1.5px #c5a059;
+    font-style: italic;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+/* --- STATS GRID --- */
+.stats_container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.stat_glass_card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 35px 20px;
+    border-radius: 4px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat_glass_card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 0;
+    background: #c5a059;
+    transition: height 0.4s ease;
+}
+
+.stat_glass_card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-10px);
+    border-color: rgba(197, 160, 89, 0.3);
+}
+
+.stat_glass_card:hover::before {
+    height: 100%;
+}
+
+.stat_value {
+    font-size: 42px;
+    font-weight: 900;
+    color: #c5a059;
+    margin-bottom: 5px;
+    line-height: 1;
+}
+
+.stat_label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* --- 2. ANALYTICS CONTENT --- */
+.section_container {
+    padding: 100px 0;
+    max-width: 1400px !important;
+}
+
+.analytics_card {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 4px;
+    /* Minimalist sharp corners for premium look */
+    padding: 50px;
+    margin-bottom: 60px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.02);
+    transition: all 0.5s ease;
+    position: relative;
+}
+
+.analytics_card:hover {
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.06);
+    border-color: #c5a059;
+}
+
+/* Floating index numbers for cards */
+.card_index {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 60px;
+    font-weight: 900;
+    color: rgba(197, 160, 89, 0.05);
+    line-height: 1;
+    pointer-events: none;
+}
+
+.analytics_card h3,
+.analytics_card h4 {
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 35px;
+    font-weight: 800;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+}
+
+.analytics_card h3::after,
+.analytics_card h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: #d3122a;
+}
+
+/* Responsive */
+@media(max-width: 991px) {
+    .stats_container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 768px) {
+    .banner_wrapper {
+        padding: 120px 0 60px;
+    }
+
+    .mainTitle {
+        font-size: 40px;
+    }
+
+    .stats_container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 0 20px;
+    }
+
+    .analytics_card {
+        padding: 25px;
+    }
+
+    .card_index {
+        right: 20px;
     }
 }

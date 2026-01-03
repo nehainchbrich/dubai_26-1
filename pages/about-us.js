@@ -11,22 +11,32 @@ import styles from '@/styles/AboutLuxury.module.css';
 const About = ({ meta }) => {
   return (
     <div className={styles.pageWrapper}>
-      {/* Light Luxury Hero */}
+      {/* 1. IMMERSIVE HERO */}
       <section className={styles.heroSection}>
-        <div className="container">
-          <div className={styles.heroContent}>
-            <span className={styles.subBadge}>Inch & Brick Realty</span>
-            <h1 className={styles.mainTitle}>
-              Elegance in <span>Strategy,</span> <br />Trust in every Inch.
-            </h1>
-            <p className={styles.headerDesc}>
-              A Dubai-based PropTech leader dedicated to transforming the urban real estate landscape with transparency, technology, and a personal touch.
-            </p>
-          </div>
+        <div className={styles.heroBackground}>
+          <Image
+            loader={imageKitLoader}
+            src={meta?.thumbnail || "/common/press-bg.jpg"}
+            alt="About Inchbrick"
+            fill
+            className={styles.heroImage}
+            priority
+          />
+          <div className={styles.heroOverlay}></div>
+        </div>
+
+        <div className={styles.heroContent}>
+          <span className={styles.subBadge}>The Inch & Brick Legacy</span>
+          <h1 className={styles.mainTitle}>
+            Elegance in <span>Strategy,</span> Trust in every Inch.
+          </h1>
+          <p className={styles.headerDesc}>
+            {meta?.description || "A Dubai-based PropTech leader dedicated to transforming the urban real estate landscape with transparency, technology, and a personal touch."}
+          </p>
         </div>
       </section>
 
-      {/* Overlapping Content Story */}
+      {/* 2. THE HERITAGE SECTION (STORY) */}
       <section className={styles.storySection}>
         <div className="container">
           <div className={styles.overlapGrid}>
@@ -36,12 +46,12 @@ const About = ({ meta }) => {
                 src="/common/about.jpg"
                 alt="Luxury Living"
                 className={styles.mainImg}
-                width={600}
-                height={800}
+                width={500}
+                height={450}
               />
               <div className={styles.metaTag}>
                 <span className={styles.metaNum}>500+</span>
-                <span className={styles.metaText}>Global Success</span>
+                <span className={styles.metaText}>Success Stories</span>
               </div>
             </div>
 
@@ -53,7 +63,7 @@ const About = ({ meta }) => {
         </div>
       </section>
 
-      {/* Value Modules Section */}
+      {/* 3. BENTO CORE VALUES */}
       <section className={styles.valuesWrapper}>
         <div className="container">
           <div className={styles.sectionHeader}>
@@ -83,14 +93,14 @@ const About = ({ meta }) => {
         </div>
       </section>
 
-      {/* Strategy Section */}
+      {/* 4. TECHNOLOGY STRATEGY */}
       <section className={styles.strategyArea}>
         <div className="container">
           <div className={styles.strategyFlex}>
             <div className={styles.stratText}>
-              <div className={styles.sectionHeader} style={{ textAlign: 'left', marginBottom: '30px' }}>
-                <span className={styles.subBadge} style={{ margin: 0 }}>The Blueprint</span>
-                <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginTop: '20px' }}>Technology-First Approach</h2>
+              <div className={styles.sectionHeader}>
+                <span className={styles.subBadge}>The PropTech Edge</span>
+                <h2>Innovation at Scale</h2>
               </div>
               <div className={styles.contentBody} dangerouslySetInnerHTML={{ __html: approch }} />
             </div>
@@ -99,23 +109,23 @@ const About = ({ meta }) => {
                 loader={imageKitLoader}
                 src="/common/about_mission.png"
                 alt="PropTech Innovation"
-                width={600}
-                height={600}
+                width={700}
+                height={500}
+                style={{ width: '100%', height: 'auto' }}
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Minimal Call-To-Action */}
+      {/* 5. CTA - BOLD & MINIMAL */}
       <section className={styles.ctaBar}>
         <div className="container">
           <Link href="/contact-us" className={styles.btnClean}>
-            Start Your Journey <i className="fas fa-arrow-right ml-3"></i>
+            Start Your Premium Journey <i className="fas fa-long-arrow-right"></i>
           </Link>
         </div>
       </section>
-
     </div>
   )
 }

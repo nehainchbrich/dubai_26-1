@@ -1,258 +1,336 @@
-/* =====================
-   CORE FEEL
-===================== */
+/* ==========================================================================
+   ABOUT PAGE - CREATIVE LUXURY DESIGN
+   ========================================================================== */
+
 .pageWrapper {
-    background: #fbfbfb;
-    font-family: 'Inter', sans-serif;
-    color: #111;
+    --brand-gold: #c5a059;
+    --brand-red: #d3122a;
+    --deep-charcoal: #0b0b0e;
+    --off-white: #fdfdfd;
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(197, 160, 89, 0.2);
+
+    background: var(--off-white);
+    font-family: 'Outfit', sans-serif;
+    overflow: hidden;
 }
 
-.pageWrapper section {
-    padding: 64px 0;
-}
-
-/* =====================
-   HERO — EDITORIAL
-===================== */
+/* --- 1. IMMERSIVE HERO --- */
 .heroSection {
-    padding: 80px 0 60px;
+    min-height: 40vh;
+    background: var(--deep-charcoal);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin-top: -85px;
+    padding-top: 100px;
+    overflow: hidden;
+}
+
+.heroBackground {
+    position: absolute;
+    inset: 0;
+    opacity: 0.4;
+    z-index: 1;
+}
+
+.heroImage {
+    object-fit: cover;
+    filter: brightness(0.7) contrast(1.1);
+}
+
+.heroOverlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 0%, var(--deep-charcoal) 100%);
+    z-index: 2;
 }
 
 .heroContent {
-    max-width: 680px;
-    margin: 0 auto;
+    position: relative;
+    z-index: 10;
     text-align: center;
+    max-width: 1000px;
+    padding: 0 20px;
 }
 
 .subBadge {
-    font-size: 0.65rem;
-    letter-spacing: 2px;
-    font-weight: 700;
-    color: #d3122a;
-    margin-bottom: 14px;
     display: inline-block;
+    padding: 8px 20px;
+    border: 1px solid var(--brand-gold);
+    color: var(--brand-gold);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 700;
+    border-radius: 50px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
 }
 
 .mainTitle {
-    font-size: clamp(2.1rem, 4.8vw, 3.2rem);
+    font-size: clamp(32px, 6vw, 60px);
     font-weight: 900;
-    line-height: 1.15;
-    letter-spacing: -1px;
-    margin-bottom: 14px;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 16px;
 }
 
 .mainTitle span {
-    color: #d3122a;
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--brand-gold);
 }
 
 .headerDesc {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #555;
-    max-width: 520px;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
     margin: 0 auto;
+    line-height: 1.6;
 }
 
-/* =====================
-   STORY — ASYMMETRIC
-===================== */
+/* --- 2. THE HERITAGE SECTION (STORY) --- */
 .storySection {
-    padding: 70px 0;
+    padding: 40px 0;
+    background: #fff;
 }
 
 .overlapGrid {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 48px;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
     align-items: center;
 }
 
 .imageBox {
     position: relative;
+    padding: 20px;
 }
 
 .mainImg {
-    height: 460px;
-    object-fit: cover;
-    border-radius: 120px 20px 120px 20px;
-    filter: grayscale(10%);
+    border-radius: 4px;
+    box-shadow: 30px 30px 0px var(--brand-gold);
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.imageBox:hover .mainImg {
+    transform: translate(-10px, -10px);
 }
 
 .metaTag {
     position: absolute;
-    bottom: 16px;
-    right: -16px;
-    padding: 14px 18px;
-    background: #111;
+    bottom: -30px;
+    left: -30px;
+    background: var(--deep-charcoal);
     color: #fff;
-    border-radius: 12px;
-    font-size: 0.7rem;
+    padding: 40px;
+    border-radius: 4px;
 }
 
 .metaNum {
-    font-size: 1.4rem;
+    font-size: 48px;
     font-weight: 900;
+    color: var(--brand-gold);
     display: block;
+    line-height: 1;
 }
 
 .metaText {
-    font-size: 0.6rem;
-    opacity: 0.8;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.7;
 }
 
 .textSide h2 {
-    font-size: 1.9rem;
+    font-size: clamp(32px, 4vw, 56px);
     font-weight: 800;
-    margin-bottom: 16px;
-    line-height: 1.2;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    color: var(--deep-charcoal);
 }
 
 .contentBody {
-    font-size: 0.95rem;
-    line-height: 1.65;
+    font-size: 18px;
+    line-height: 1.8;
     color: #444;
 }
 
-.contentBody :global(p) {
-    margin-bottom: 14px;
+.contentBody p {
+    margin-bottom: 20px;
 }
 
-/* =====================
-   VALUES — EDITORIAL CARDS
-===================== */
+.contentBody b {
+    color: var(--brand-red);
+}
+
+/* --- 3. BENTO CORE VALUES --- */
 .valuesWrapper {
-    padding: 64px 0;
+    padding: 40px 0;
+    background: var(--deep-charcoal);
+    color: #fff;
 }
 
 .sectionHeader {
     text-align: center;
-    margin-bottom: 36px;
+    margin-bottom: 30px;
 }
 
 .sectionHeader h3 {
-    font-size: 1.9rem;
+    font-size: 48px;
     font-weight: 800;
+    text-transform: uppercase;
 }
 
 .moduleGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
+    gap: 30px;
 }
 
 .moduleCard {
-    padding: 26px;
-    border-radius: 18px;
-    background: #fff;
-    border: 1px solid #eee;
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    padding: 25px 20px;
+    border-radius: 4px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.moduleCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 0;
+    background: var(--brand-gold);
+    transition: height 0.4s ease;
 }
 
 .moduleCard:hover {
-    transform: translateY(-6px);
-    border-color: #d3122a;
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-10px);
+}
+
+.moduleCard:hover::before {
+    height: 100%;
 }
 
 .iconCircle {
-    width: 38px;
-    height: 38px;
-    font-size: 0.9rem;
-    background: #f8f8f8;
-    border-radius: 50%;
-    margin-bottom: 14px;
+    width: 60px;
+    height: 60px;
+    background: rgba(197, 160, 89, 0.1);
+    color: var(--brand-gold);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #d3122a;
+    font-size: 24px;
+    border-radius: 50%;
+    margin-bottom: 30px;
 }
 
 .moduleTitle {
-    font-size: 1.1rem;
+    font-size: 24px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 20px;
+    color: var(--brand-gold);
 }
 
 .moduleDesc {
-    font-size: 0.88rem;
-    line-height: 1.55;
-    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
 }
 
-/* =====================
-   STRATEGY — MAGAZINE
-===================== */
+/* --- 4. TECHNOLOGY STRATEGY --- */
 .strategyArea {
-    padding: 70px 0;
-}
-
-.strategyFlex {
-    display: flex;
-    gap: 48px;
-    align-items: center;
-}
-
-.strategyArea h2 {
-    font-size: 1.85rem;
-    margin-bottom: 12px;
-}
-
-.stratImg img {
-    max-height: 380px;
-    border-radius: 24px;
-    object-fit: cover;
-}
-
-/* =====================
-   CTA — QUIET POWER
-===================== */
-.ctaBar {
-    padding: 48px 0;
+    padding: 40px 0;
     background: #fff;
 }
 
+.strategyFlex {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.stratText .sectionHeader {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.stratImg {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.stratImg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 20px solid rgba(197, 160, 89, 0.1);
+    pointer-events: none;
+}
+
+/* --- 5. CTA --- */
+.ctaBar {
+    padding: 40px 0;
+    background: var(--brand-gold);
+    text-align: center;
+}
+
 .btnClean {
-    padding: 11px 32px;
-    font-size: 0.8rem;
-    letter-spacing: 1.5px;
-    border: 1.5px solid #111;
-    border-radius: 40px;
-    transition: all 0.25s ease;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--deep-charcoal);
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    transition: gap 0.3s ease;
 }
 
 .btnClean:hover {
-    background: #111;
-    color: #fff;
+    gap: 40px;
 }
 
-/* =====================
-   RESPONSIVE
-===================== */
+/* --- RESPONSIVE --- */
 @media (max-width: 991px) {
 
     .overlapGrid,
     .moduleGrid,
     .strategyFlex {
         grid-template-columns: 1fr;
-        flex-direction: column;
-        gap: 28px;
+        gap: 60px;
+    }
+
+    .heroSection {
+        min-height: 60vh;
+    }
+
+    .mainTitle {
+        font-size: 50px;
+    }
+
+    .metaTag {
+        position: static;
+        margin-top: 20px;
+        display: inline-block;
+    }
+
+    .imageBox {
+        padding: 0;
     }
 
     .mainImg {
-        height: 320px;
-    }
-
-    .heroContent,
-    .textSide {
-        text-align: center;
-    }
-}
-
-@media (max-width: 600px) {
-    .mainTitle {
-        font-size: 1.9rem;
-    }
-
-    .contentBody {
-        font-size: 0.88rem;
+        box-shadow: 15px 15px 0px var(--brand-gold);
     }
 }

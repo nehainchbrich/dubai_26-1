@@ -70,6 +70,9 @@ export default function Footer() {
                 <li><Link href="/career-opportunities">Careers</Link></li>
                 <li><Link href="/press-release">Press & Media</Link></li>
                 <li><Link href="/blogs">Market Insights</Link></li>
+                <li><Link href="/dubai-real-estate-faqs">FAQ's</Link></li>
+                <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+                <li><Link href="/terms-and-condition">Terms & Conditions</Link></li>
                 <li><Link href="/contact-us">Contact</Link></li>
               </ul>
             </div>

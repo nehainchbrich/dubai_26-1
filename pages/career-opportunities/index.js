@@ -1,83 +1,85 @@
 import React from 'react'
 import Website from '../layouts/website'
-import CommonBanner from '@/components/website/common/CommonBanner'
 import LatestProperty from '@/components/website/property/LatestProperty'
 import LatestBlog from '@/components/website/blogs/LatestBlog'
 import Link from 'next/link'
+import Image from 'next/image'
 import API_URLS from '@/config/apiconfig'
-import { formatDate } from '@/helper/Helper'
+import { formatDate, imageKitLoader } from '@/helper/Helper'
 import { fetchData, fetchWebsitePage } from '@/config/fetchApi'
 import PreLoader from '@/components/website/common/PreLoader'
-const Index = ({ career, careerPage,meta }) => {
+import styles from '@/styles/career/Careers.module.css'
+
+const Index = ({ career, careerPage, meta }) => {
     const { data } = career;
-    if (data) {
-        return (
-            <>
-                <CommonBanner title={careerPage.title} meta={meta} />
-                
-                <div className='container job-list my-5'>
-                    <div className='row'>
-                        <div className='col-md-12'>
-                            {careerPage && (
-                                <div dangerouslySetInnerHTML={{ __html: careerPage.description }} />
-                            )}
-                        </div>
-                        <div className='col-md-8'>
-                            <div className='mx-2'>
+
+    if (!data) return <PreLoader />;
+
+    return (
+        <div className={styles.pageWrapper}>
+            {/* 1. MINIMAL HERO */}
+            <header className={styles.heroSection}>
+                <div className="container">
+                    <span className={styles.kicker}>Join the industry leaders</span>
+                    <h1 className={styles.mainTitle}>
+                        Shape the future of <br /><b>Dubai Real Estate.</b>
+                    </h1>
+                    <div className={styles.heroDesc}>
+                        {careerPage && (
+                            <div dangerouslySetInnerHTML={{ __html: careerPage.description }} />
+                        )}
+                    </div>
+                </div>
+            </header>
+
+            {/* 2. JOB LISTINGS */}
+            <section className={styles.jobListContainer}>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-9">
+                            <div className={styles.sectionLabel}>
+                                <h2>Currently Open</h2>
+                                <div className={styles.line}></div>
+                            </div>
+
+                            <div className={styles.editorialStack}>
                                 {data && data.map((item, index) => (
-                                    <div className='row job-card shadow-sm my-3 py-3' key={index}>
-                                        <div className='col-md-8'>
-                                            <h4 className='mb-3'>{item.title}</h4>
-                                            <div className='job-details mt-1'>
-                                                <p><span className='fas fa-map-marker-alt'></span> {item.address}</p>
-                                                <p><span className='fas fa-clock'></span> {item.jobtype}</p>
-                                            </div>
+                                    <Link href={`/career-opportunities/${item.slug}`} className={styles.editorialItem} key={index}>
+                                        <div className={styles.accentBar}></div>
+                                        <div className={styles.titleMain}>
+                                            <span>{item.jobtype}</span>
+                                            <h3>{item.title}</h3>
                                         </div>
-                                        <div className='col-md-4 text-end'><Link href={`/career-opportunities/${item.slug}`} className='btns btn-blue mb-2'>Apply Now</Link>
-                                            <p className='mb-0'>Dead Line <span className='fas fa-clock'></span> {formatDate(item.deadline)}</p>
+                                        <div className={styles.jobDetails}>
+                                            <div className={styles.loc}><i className="fas fa-map-marker-alt"></i> {item.address}</div>
+                                            <div className={styles.deadline}>Apply by {formatDate(item.deadline)}</div>
                                         </div>
-                                    </div>
+                                        <div className={styles.applyArrow}>
+                                            <i className="fas fa-arrow-right"></i>
+                                        </div>
+                                    </Link>
                                 ))}
                             </div>
                         </div>
-                        <div className='col-md-4'>
-                            <LatestProperty />
-                            <LatestBlog />
+
+                        <div className="col-lg-3">
+                            <aside className={styles.sidebarWrapper}>
+                                <LatestProperty />
+                                <div className="mt-5">
+                                    <LatestBlog />
+                                </div>
+                            </aside>
                         </div>
                     </div>
                 </div>
-                <style>
-                    {`
-                .job-card{
-                    background: #f5f5f5;
-                    color: var(--brand-color-1);
-                    border-radius: 10px;
-                }
-                    .fas{
-                    color: #817b7b;
-                    }
-                .job-card h4{
-                    font-weight:bolder;
-                    text-transform:capitalize;
-                    font-size: 1.2rem;
-                }
-                .job-card p{
-                    font-size:16px;
-                }
-                .job-details{
-                    display: flex;
-                    justify-content: space-between;
-                }
-            `}
-                </style>
-            </>
-        )
-    } else { return (<><PreLoader /></>) }
+            </section>
+        </div>
+    );
 }
 
 export default Index
 Index.getLayout = function getLayout(page) {
-    const  {props} = page;
+    const { props } = page;
     return <Website meta={props.meta}>{page}</Website>;
 }
 export const getStaticProps = async () => {
@@ -85,10 +87,10 @@ export const getStaticProps = async () => {
         const options = { status: 1, columns: 'deadline,title,slug,address,jobtype' };
         const career = await fetchData(API_URLS.MANAGE_CAREER, options);
         const careerPage = await fetchWebsitePage('career-opportunities');
-        const meta = await fetchData(API_URLS.META,{slug:'career-opportunities',columns: 'title,description,thumbnail,slug'});
+        const meta = await fetchData(API_URLS.META, { slug: 'career-opportunities', columns: 'title,description,thumbnail,slug' });
         if (career.status === true) {
             return {
-                props: { career, careerPage,meta:meta.data[0] },
+                props: { career, careerPage, meta: meta.data[0] },
                 revalidate: 43200, // Set ISR and revalidate at midnight every day
             };
         } else {

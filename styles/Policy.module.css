@@ -1,0 +1,106 @@
+/* ==========================================================================
+   POLICY PAGE - CLEAN & READABLE LUXURY
+   ========================================================================== */
+
+.pageWrapper {
+    --gold: #c5a059;
+    --dark: #111;
+    --grey: #f8f9fa;
+    --border: rgba(0, 0, 0, 0.06);
+    background: #fff;
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+}
+
+/* --- 1. MINIMAL HERO --- */
+.heroSection {
+    padding: 120px 0 80px;
+    background: var(--dark);
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.heroSection::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(197, 160, 89, 0.1) 0%, transparent 70%);
+}
+
+.kicker {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.mainTitle {
+    font-size: clamp(40px, 6vw, 64px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 2;
+    text-transform: uppercase;
+}
+
+/* --- 2. CONTENT AREA --- */
+.contentArea {
+    padding: 80px 0;
+    background: #fff;
+}
+
+.policyContainer {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 60px;
+    border: 1px solid var(--border);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+}
+
+.policyBody {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #444;
+}
+
+.policyBody h2,
+.policyBody h3 {
+    color: var(--dark);
+    font-weight: 800;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.policyBody p {
+    margin-bottom: 20px;
+}
+
+.policyBody ul {
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.policyBody li {
+    margin-bottom: 10px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .policyContainer {
+        padding: 30px 20px;
+    }
+
+    .heroSection {
+        padding: 80px 0 40px;
+    }
+}
