@@ -734,4 +734,32 @@
         gap: 10px;
         flex-wrap: wrap;
     }
+
+    /* Horizontal Scroll for Location Grid */
+    .locationGrid {
+        display: flex;
+        overflow-x: auto;
+        gap: 16px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 20px;
+        margin-right: -15px;
+        padding-right: 15px;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+    }
+
+    .locationGrid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .gridCol {
+        min-width: 280px;
+        max-width: 280px;
+        flex: 0 0 auto;
+        scroll-snap-align: center;
+        margin-bottom: 0 !important;
+        padding-right: 0;
+        padding-left: 0;
+    }
 }

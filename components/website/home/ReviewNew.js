@@ -163,7 +163,7 @@ export default function ReviewSection() {
               }`}
           >
             <div>
-              <Image
+              <Image className="googleLogo"
                 src="/images/google.png"
                 alt="Google"
                 width={200}

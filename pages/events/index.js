@@ -19,7 +19,7 @@ const Index = ({ developer, team, press, event, gallery, meta, blog, category, t
       <section>
         <Banner data={meta} developer={developer} event={event} />
 
-        <div className="container-fluid" style={{ maxWidth: '1600px', margin: '0 auto', padding: '0' }}>
+        <div className="container-fluid" style={{ maxWidth: '1600px', margin: '0 auto' }}>
           <div className="row">
             <div className="col-lg-9 col-md-12">
 

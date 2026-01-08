@@ -36,10 +36,10 @@ const Index = ({ location, locationPage, meta }) => {
               />
             )}
 
-            <div className="row blog_tiles">
+            <div className={`${styles.locationGrid} row`}>
               {data && data.length > 0 ? (
                 data.map((item, index) => (
-                  <div className="col-lg-6 col-md-6 mb-5" key={index}>
+                  <div className={`${styles.gridCol} col-lg-6 col-md-6 mb-5`} key={index}>
                     <LocationCard item={item} />
                   </div>
                 ))
