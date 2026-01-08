@@ -207,6 +207,10 @@
         letter-spacing: -1px;
     }
 
+    .bannerText {
+        top: 60%;
+    }
+
     .subTitle {
         font-size: 1rem;
         padding: 0 20px;
@@ -224,6 +228,6 @@
     }
 
     .bannerContainer {
-        margin-top: -65px;
+        margin-top: -158px;
     }
 }
