@@ -37,7 +37,7 @@ export default function Footer() {
 
         {/* Main Grid */}
         <div className="container pt-5 pb-5">
-          <div className="row g-5">
+          <div className="row">
             {/* Brand */}
             <div className="col-lg-4 col-md-12">
               <Image className="footerLogo"
