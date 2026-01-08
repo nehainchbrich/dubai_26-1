@@ -242,10 +242,38 @@
 
 @media (max-width: 600px) {
   .prominentLoc {
-    grid-template-columns: 1fr;
+    grid-template-columns: unset;
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 0 30px;
+    margin: 0;
+    scrollbar-width: none;
+  }
+
+  .prominentLoc::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card_wrapper {
+    min-width: 260px;
+    max-width: 260px;
+    scroll-snap-align: center;
+    height: 100%;
+  }
+
+  .card {
+    height: 380px;
+    border-radius: 16px;
+  }
+
+  .card_title {
+    font-size: 1.5rem;
   }
 
   .prominentArea {
-    padding: 40px 0;
+    padding: 40px 0 20px;
   }
 }

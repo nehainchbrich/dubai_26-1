@@ -264,3 +264,96 @@
     font-size: 4rem;
   }
 }
+
+@media (max-width: 600px) {
+  .scrollContainer {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 10px 0 30px;
+    margin-top: 20px;
+    perspective: none;
+    scrollbar-width: none;
+  }
+
+  .scrollContainer::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stickyWrapper {
+    position: relative !important;
+    top: 0 !important;
+    margin-bottom: 0 !important;
+    min-width: 280px;
+    max-width: 280px;
+    scroll-snap-align: center;
+    height: 100%;
+  }
+
+  .stackCard {
+    height: 420px;
+    flex-direction: column;
+    position: relative;
+    border: none;
+    box-shadow: none;
+    overflow: hidden;
+  }
+
+  .cardImageContainer {
+    position: absolute;
+    inset: 0;
+    height: 100% !important;
+    z-index: 1;
+    border-radius: 20px;
+  }
+
+  .bgImage {
+    border-radius: 20px;
+  }
+
+  .cardInfo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.6) 60%, transparent 100%);
+    z-index: 2;
+    justify-content: flex-end;
+    padding: 20px;
+    border-radius: 0 0 20px 20px;
+    border: none;
+  }
+
+  .indexNum {
+    top: 15px;
+    right: 15px;
+    font-size: 3rem;
+    opacity: 0.6;
+    z-index: 3;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .cardTitle {
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 10px;
+    background: none;
+    -webkit-text-fill-color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .cardDesc {
+    display: none;
+  }
+
+  .viewBtn {
+    width: 100%;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    margin-top: 5px;
+  }
+}
