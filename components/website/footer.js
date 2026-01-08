@@ -40,7 +40,7 @@ export default function Footer() {
           <div className="row g-5">
             {/* Brand */}
             <div className="col-lg-4 col-md-12">
-              <Image
+              <Image className="footerLogo"
                 src={`${process.env.API_URL}/common/logo.png`}
                 width={160}
                 height={55}
@@ -151,10 +151,10 @@ export default function Footer() {
 
       {/* Mobile Nav */}
       <div className="footerNav">
-        <Link href="/"><i className="fa fa-home" /> Home</Link>
+        <Link href="/" className="footeranchor"><i className="fa fa-home" /> Home</Link>
         <SearchProperty />
-        <Link href="/residential-properties"><i className="fas fa-building" /> Buy</Link>
-        <Link href="/contact-us"><i className="fas fa-tags" /> Sell</Link>
+        <Link href="/residential-properties" className="footeranchor"><i className="fas fa-building" /> Buy</Link>
+        <Link href="/contact-us" className="footeranchor"><i className="fas fa-tags" /> Sell</Link>
       </div>
     </>
   );
