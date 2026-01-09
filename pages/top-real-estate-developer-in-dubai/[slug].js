@@ -14,6 +14,9 @@ const LatestBlog = dynamic(() => import('@/components/website/blogs/LatestBlog')
 const LatestProperty = dynamic(() => import('@/components/website/property/LatestProperty'));
 
 const slug = ({ developer, property, meta }) => {
+  if (!developer || !developer.length) {
+    return <div className="container py-5">Developer not found</div>;
+  }
   const currentDev = developer[0];
 
   return (

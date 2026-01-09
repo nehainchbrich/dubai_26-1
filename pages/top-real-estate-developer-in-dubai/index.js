@@ -1,4 +1,3 @@
-import CommonBanner from '@/components/website/common/CommonBanner'
 import React from 'react'
 import Website from '../layouts/website'
 import API_URLS from '@/config/apiconfig'
@@ -10,29 +9,60 @@ import { imageKitLoader } from '@/helper/Helper'
 
 const index = ({ developer, developerPage, meta }) => {
   const { data } = developer;
+  const [isExpanded, setIsExpanded] = React.useState(false);
+  const description = developerPage.description || "";
+  const isLongDescription = description.length > 250;
 
   return (
     <div className={styles.pageWrapper}>
-      <header className={`${styles.titleSection} ${styles.lightHeader}`}>
-        <div className="container">
-          <span className={styles.countLabel}>{data.length} Global Developers</span>
-          <h1 className={styles.mainTitle}>{developerPage.title}</h1>
-          <p className={styles.headerDesc}>Partnering with Dubai's most visionary real estate creators</p>
+      {/* LUXURY HERO BANNER */}
+      <section className={styles.residentialHero}>
+        <div className={styles.heroContent}>
+          <span className={styles.heroKicker}>{data.length} Global Developers</span>
+          <h1 className={styles.heroTitle}>
+            Top <br /><span>Developers</span>
+          </h1>
+          <div className={`${styles.heroDesc} ${isExpanded ? styles.expanded : ""}`}>
+            {description ? (
+              <div dangerouslySetInnerHTML={{ __html: description }} />
+            ) : (
+              <p>Partnering with Dubai's most visionary real estate creators</p>
+            )}
+          </div>
+          {isLongDescription && (
+            <button
+              className={styles.knowMoreBtn}
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              {isExpanded ? "Show Less" : "Read More"}
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="currentColor"
+                style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}
+              >
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+              </svg>
+            </button>
+          )}
         </div>
-      </header>
+
+        <div className={styles.heroVisual}>
+          <Image
+            loader={meta?.thumbnail ? imageKitLoader : undefined}
+            src={meta?.thumbnail || "/images/pr banner.jpg"}
+            alt={developerPage.title || "Developers"}
+            fill
+            priority
+            className={styles.heroImage}
+            unoptimized={!meta?.thumbnail}
+          />
+        </div>
+      </section>
 
       <section className={styles.listingSection}>
         <div className='container'>
-          {developerPage && (
-            <div className={styles.titleWrapper}>
-              <h2 className={styles.gridTitle}>Featured <span>Developers</span></h2>
-              <div
-                className={styles.description}
-                dangerouslySetInnerHTML={{ __html: developerPage.description }}
-              />
-            </div>
-          )}
-
           <div className={styles.developerGrid}>
             {data && data.map((item, index) => (
               <Link
