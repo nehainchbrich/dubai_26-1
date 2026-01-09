@@ -37,7 +37,7 @@
 }
 
 .slick_nav {
-   background-color: var(--nav-color);
+   background-color: var(--color-4);
    box-shadow: var(--shadow-100);
    height: auto;
    transition: background 0.3s ease;
