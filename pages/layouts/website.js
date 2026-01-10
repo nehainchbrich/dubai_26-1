@@ -9,7 +9,7 @@ import WebsiteSchema from '@/markup/WebsiteSchema';
 import Head from 'next/head';
 import Script from 'next/script';
 import React, { useEffect, useState } from 'react'
-import PremiumAutoPopup from '@/components/website/common/PremiumAutoPopup';
+
 const Website = ({ children, meta, category, tags, latestBlog }) => {
   const router = useRouter();
   const isHome = router.pathname === "/" || router.pathname === "/events";
@@ -72,7 +72,6 @@ const Website = ({ children, meta, category, tags, latestBlog }) => {
       <Model id="reset_pass" title="Reset Password" />
       <TriggerModal />
       <TriggerBtn />
-      <PremiumAutoPopup />
       <div className={isHome ? "home-navbar" : ""}>
         <Navbar />
       </div>
