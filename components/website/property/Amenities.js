@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import styles from '../../../styles/SingleProperty.module.css'
-const Amenities = ({items}) => {
-    const [showAll, setShowAll] = useState(false);
-    const limit = 11;
-    const amenities = showAll ? items : items.slice(0, limit);
-    const remainingCount = items.length - limit;
+const Amenities = ({ items }) => {
+  const [showAll, setShowAll] = useState(false);
+  const limit = 11;
+  const amenities = showAll ? items : items.slice(0, limit);
+  const remainingCount = items.length - limit;
   return (
     <>
-    {amenities.map((item, i) => (
+      {amenities.map((item, i) => (
         <div className="col-md-2 col-4 my-3 d-flex" key={i}>
           <div className="shadow-sm p-2 width-full">
-          <p className={`${item.icons} ${styles.amIcon}`}></p>
-          <p className="text-center">{item.title}</p>
+            <p className={`${item.icons} ${styles.amIcon}`}></p>
+            <p className="text-center">{item.title}</p>
           </div>
         </div>
       ))}
