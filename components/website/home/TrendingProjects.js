@@ -8,6 +8,8 @@ import { imageKitLoader } from '@/helper/Helper';
 const TrendingProjects = ({ data }) => {
     const scrollRef = React.useRef(null);
     const [currentIndex, setCurrentIndex] = React.useState(1);
+    const [isVisible, setIsVisible] = React.useState(false);
+    const sectionRef = React.useRef(null);
     const projects = Array.isArray(data) ? data : [];
 
     const handleScroll = () => {
@@ -33,10 +35,34 @@ const TrendingProjects = ({ data }) => {
         }
     };
 
+    React.useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                    entry.target.classList.add(styles.animateIn);
+                } else {
+                    setIsVisible(false);
+                }
+            },
+            { threshold: 0.2 }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => {
+            if (sectionRef.current) {
+                observer.unobserve(sectionRef.current);
+            }
+        };
+    }, []);
+
     if (projects.length === 0) return null;
 
     return (
-        <section className={styles.trendingArea}>
+        <section className={`${styles.trendingArea} ${isVisible ? styles.isInView : ''}`} ref={sectionRef}>
             {/* Massive Background Watermark */}
             <div className={styles.watermarkBody}>Trending</div>
 
@@ -44,6 +70,18 @@ const TrendingProjects = ({ data }) => {
                 <div className={styles.splitLayout}>
                     {/* Left Column: Fixed Content */}
                     <div className={styles.leftContent}>
+                        {/* Floating 3D Burj Khalifa Image (Now inside the title column) */}
+                        <div className={styles.floatingBurj}>
+                            <Image
+                                src="/images/burj-3d.png"
+                                alt="Burj Khalifa 3D"
+                                width={800}
+                                height={1200}
+                                priority
+                                className={styles.burjImage}
+                            />
+                        </div>
+
                         <h2 className={styles.titleMain}>
                             Trending <span>Projects</span>
                         </h2>
