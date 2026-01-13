@@ -31,6 +31,9 @@ const Forget = () => {
 
   return (
     <div className={styles.authWrapper}>
+      <button type="button" className={styles.backBtn} data-bs-dismiss="modal">
+        <i className="fas fa-arrow-left"></i>
+      </button>
       <div className={styles.authBackground}></div>
       <div className={styles.authBackgroundBottom}></div>
 
